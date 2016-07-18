@@ -1,4 +1,59 @@
+import java.util.*;
 
 public class ClueGame {
-	//Test yooo
+	
+	//Clue sets
+	public List<Weapon> weapons = new ArrayList<Weapon>();
+	public List<Character> characters  = new ArrayList<Character>();
+	public List<Location> locations = new ArrayList<Location>();
+	
+	public Solution solution;
+	
+	//Fills the sets with the clue objects
+	//TODO: Optimise this later.
+	public void fillClueSets(){
+		weapons.add(new Weapon(Weapon.WeaponType.CANDLESTICK));
+		weapons.add(new Weapon(Weapon.WeaponType.DAGGER));
+		weapons.add(new Weapon(Weapon.WeaponType.LEADPIPE));
+		weapons.add(new Weapon(Weapon.WeaponType.REVOLVER));
+		weapons.add(new Weapon(Weapon.WeaponType.ROPE));
+		weapons.add(new Weapon(Weapon.WeaponType.SPANNER));
+		
+		characters.add(new Character(Character.CharName.Colonel_Mustard));
+		characters.add(new Character(Character.CharName.Miss_Scarlet));
+		characters.add(new Character(Character.CharName.Mrs_Peacock));
+		characters.add(new Character(Character.CharName.Mrs_White));
+		characters.add(new Character(Character.CharName.Professor_Plum));
+		characters.add(new Character(Character.CharName.The_Reverend_Green));
+		
+		locations.add(new Location(Location.LocName.BALL_ROOM));
+		locations.add(new Location(Location.LocName.BILLIARD_ROOM));
+		locations.add(new Location(Location.LocName.CONSERVATORY));
+		locations.add(new Location(Location.LocName.BILLIARD_ROOM));
+		locations.add(new Location(Location.LocName.CONSERVATORY));
+		locations.add(new Location(Location.LocName.DINING_ROOM));
+		locations.add(new Location(Location.LocName.HALL));
+		locations.add(new Location(Location.LocName.KITCHEN));
+		locations.add(new Location(Location.LocName.LIBRARY));
+		locations.add(new Location(Location.LocName.LOUNGE));
+		locations.add(new Location(Location.LocName.STUDY));
+	}
+	
+	//Generates the enveloped solution
+	public Solution generateSolution(){
+		Location toAddLoc;
+		Character toAddChar;
+		Weapon toAddWep;
+		
+		int rand = new Random().nextInt(characters.size());
+		toAddChar = characters.remove(rand);
+		
+		rand = new Random().nextInt(locations.size());
+		toAddLoc = locations.remove(rand);
+		
+		rand = new Random().nextInt(weapons.size());
+		toAddWep = weapons.remove(rand);
+		
+		return new Solution(toAddChar, toAddWep, toAddLoc);
+	}
 }
