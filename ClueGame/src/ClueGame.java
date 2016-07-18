@@ -10,9 +10,19 @@ public class ClueGame {
 	
 	public Solution solution;
 	
+	public Board board = new Board();
+	public InputManager input = new InputManager(this, board);
+	
+	
+	
 	public ClueGame(){
+		fillClueSets();
 		solution = generateSolution();
 		
+		// Main game loop
+		while (true){
+			input.processNewInput();
+		}
 	}
 	
 	
