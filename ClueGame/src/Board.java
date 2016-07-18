@@ -41,7 +41,7 @@ public class Board {
 	
 	// keep track of which door tiles on 
 	private RoomData[] roomData = new RoomData[] {
-			new RoomData(new Coordinate(0,1), new Coordinate(10, 10))
+			new RoomData(Location.LocName.BALL_ROOM, new Coordinate(0,1), new Coordinate(10, 10))
 	};
 	
 	// inner class used to hold coordinate data (like a tuple)
@@ -56,16 +56,17 @@ public class Board {
 	// inner class used to hold data relating to rooms and their doors
 	class RoomData{
 			
+		public Location.LocName locName;
 		private List<Coordinate> doors;
 		
-		public RoomData(Coordinate roomTopLeft, Coordinate roomBottomRight){
+		public RoomData(Location.LocName locName, Coordinate roomTopLeft, Coordinate roomBottomRight){
 			//FIXME incomplete
 		}
 		
 		public boolean ownsDoor(Coordinate location){
 			//FIXME incomplete
 			return false;
-		}
+		} 
 	}
 
 	public Board(){		
