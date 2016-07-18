@@ -1,5 +1,6 @@
 import java.util.*;
 
+
 public class ClueGame {
 	
 	//Clue sets
@@ -8,6 +9,12 @@ public class ClueGame {
 	public List<Location> locations = new ArrayList<Location>();
 	
 	public Solution solution;
+	
+	public ClueGame(){
+		solution = generateSolution();
+		
+	}
+	
 	
 	//Fills the sets with the clue objects
 	//TODO: Optimise this later.
@@ -55,5 +62,14 @@ public class ClueGame {
 		toAddWep = weapons.remove(rand);
 		
 		return new Solution(toAddChar, toAddWep, toAddLoc);
+	}
+	
+	//TODO: Maybe tidy this up
+	public boolean tryVictory(Character tryChar, Weapon tryWep, Location tryLoc){
+		
+		return (solution.getChar().getName() == tryChar.getName() 
+				&& solution.getWep().getType() == tryWep.getType()
+				&& solution.getLoc().getName() == tryLoc.getName());
+			
 	}
 }

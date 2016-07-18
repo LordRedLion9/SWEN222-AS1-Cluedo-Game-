@@ -10,4 +10,8 @@ public class Solution {
 		this.weapon = weapon;
 		this.loc = loc;
 	}
+	
+	public Character getChar(){return chara;}
+	public Weapon getWep(){return weapon;}
+	public Location getLoc(){return loc;}
 }
