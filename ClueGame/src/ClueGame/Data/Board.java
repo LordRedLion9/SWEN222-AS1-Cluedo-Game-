@@ -1,5 +1,8 @@
+package ClueGame.Data;
+
 import java.util.*;
 import java.lang.*;
+import ClueGame.Data.Location.LocName;
 
 public class Board {
 	
@@ -41,7 +44,7 @@ public class Board {
 	
 	// keep track of which door tiles on 
 	private RoomData[] roomData = new RoomData[] {
-			new RoomData(Location.LocName.BALL_ROOM, new Coordinate(0,1), new Coordinate(10, 10))
+			new RoomData(LocName.BALL_ROOM, new Coordinate(0,1), new Coordinate(10, 10))
 	};
 	
 	// inner class used to hold coordinate data (like a tuple)

@@ -1,4 +1,8 @@
+package ClueGame.Main;
+
 import java.util.*;
+import ClueGame.Data.*;
+import ClueGame.Data.Character;
 
 
 public class ClueGame {

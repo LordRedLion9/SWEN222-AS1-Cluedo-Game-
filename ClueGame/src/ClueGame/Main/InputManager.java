@@ -1,4 +1,7 @@
+package ClueGame.Main;
+
 import java.util.*;
+import ClueGame.Data.Board;
 
 public class InputManager {
 

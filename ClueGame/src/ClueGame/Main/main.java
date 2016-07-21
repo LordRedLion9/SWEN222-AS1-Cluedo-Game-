@@ -1,3 +1,4 @@
+package ClueGame.Main;
 
 public class main {
 

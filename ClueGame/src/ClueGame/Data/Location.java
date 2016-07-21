@@ -1,3 +1,4 @@
+package ClueGame.Data;
 
 public class Location {
 	private LocName name;
