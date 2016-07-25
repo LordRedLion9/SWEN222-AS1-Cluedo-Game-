@@ -86,4 +86,9 @@ public class ClueGame {
 				&& solution.getLoc().getName() == tryLoc.getName());
 			
 	}
+	
+	
+	public int rollDice(){
+		return new Random().nextInt(6) + 1;
+	}
 }
