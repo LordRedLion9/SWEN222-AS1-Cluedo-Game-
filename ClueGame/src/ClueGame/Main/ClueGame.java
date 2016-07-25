@@ -3,6 +3,9 @@ package ClueGame.Main;
 import java.util.*;
 import ClueGame.Data.*;
 import ClueGame.Data.Character;
+import ClueGame.Data.Character.CharName;
+import ClueGame.Data.Location.LocName;
+import ClueGame.Data.Weapon.WeaponType;
 
 
 public class ClueGame {
@@ -74,31 +77,31 @@ public class ClueGame {
 	//Fills the sets with the clue objects
 	//TODO: Optimise this later.
 	public void fillClueSets(){
-		weapons.add(new Weapon(Weapon.WeaponType.CANDLESTICK));
-		weapons.add(new Weapon(Weapon.WeaponType.DAGGER));
-		weapons.add(new Weapon(Weapon.WeaponType.LEADPIPE));
-		weapons.add(new Weapon(Weapon.WeaponType.REVOLVER));
-		weapons.add(new Weapon(Weapon.WeaponType.ROPE));
-		weapons.add(new Weapon(Weapon.WeaponType.SPANNER));
+		weapons.add(new Weapon(WeaponType.CANDLESTICK));
+		weapons.add(new Weapon(WeaponType.DAGGER));
+		weapons.add(new Weapon(WeaponType.LEADPIPE));
+		weapons.add(new Weapon(WeaponType.REVOLVER));
+		weapons.add(new Weapon(WeaponType.ROPE));
+		weapons.add(new Weapon(WeaponType.SPANNER));
 		
-		characters.add(new Character(Character.CharName.Colonel_Mustard));
-		characters.add(new Character(Character.CharName.Miss_Scarlet));
-		characters.add(new Character(Character.CharName.Mrs_Peacock));
-		characters.add(new Character(Character.CharName.Mrs_White));
-		characters.add(new Character(Character.CharName.Professor_Plum));
-		characters.add(new Character(Character.CharName.The_Reverend_Green));
+		characters.add(new Character(CharName.Colonel_Mustard));
+		characters.add(new Character(CharName.Miss_Scarlet));
+		characters.add(new Character(CharName.Mrs_Peacock));
+		characters.add(new Character(CharName.Mrs_White));
+		characters.add(new Character(CharName.Professor_Plum));
+		characters.add(new Character(CharName.The_Reverend_Green));
 		
-		locations.add(new Location(Location.LocName.BALL_ROOM));
-		locations.add(new Location(Location.LocName.BILLIARD_ROOM));
-		locations.add(new Location(Location.LocName.CONSERVATORY));
-		locations.add(new Location(Location.LocName.BILLIARD_ROOM));
-		locations.add(new Location(Location.LocName.CONSERVATORY));
-		locations.add(new Location(Location.LocName.DINING_ROOM));
-		locations.add(new Location(Location.LocName.HALL));
-		locations.add(new Location(Location.LocName.KITCHEN));
-		locations.add(new Location(Location.LocName.LIBRARY));
-		locations.add(new Location(Location.LocName.LOUNGE));
-		locations.add(new Location(Location.LocName.STUDY));
+		locations.add(new Location(LocName.BALL_ROOM));
+		locations.add(new Location(LocName.BILLIARD_ROOM));
+		locations.add(new Location(LocName.CONSERVATORY));
+		locations.add(new Location(LocName.BILLIARD_ROOM));
+		locations.add(new Location(LocName.CONSERVATORY));
+		locations.add(new Location(LocName.DINING_ROOM));
+		locations.add(new Location(LocName.HALL));
+		locations.add(new Location(LocName.KITCHEN));
+		locations.add(new Location(LocName.LIBRARY));
+		locations.add(new Location(LocName.LOUNGE));
+		locations.add(new Location(LocName.STUDY));
 	}
 	
 	//Generates the enveloped solution
