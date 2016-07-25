@@ -5,6 +5,8 @@ import ClueGame.Data.Board;
 
 public class InputManager {
 
+	//Ideally this class should do nothing but process input and instruct main game class.
+	
 	private Scanner scan = new Scanner (System.in);
 	private ClueGame game;
 	private Board board;
@@ -14,8 +16,13 @@ public class InputManager {
 		this.board = board;
 	}
 	
+	public String getInput(){
+		return scan.next();	
+	}
+	
 	public void processNewInput(){
-		String input = scan.next();
+		String input = getInput();
+		//Maybe do formatting here?
 		processInput(input);
 	}
 
@@ -31,7 +38,7 @@ public class InputManager {
 			case "ACCUSE":
 				//accuse process
 			case "END":
-				//end process
+				game.endTurn();
 			
 		}
 			
@@ -40,19 +47,25 @@ public class InputManager {
 	private void moveCommand(){
 		int canMove = game.rollDice();
 		System.out.println("You rolled: " + canMove);
-		for (int i = 0; i < canMove; i++){
-			
+		
+		
+		for (int i = 0; i < canMove; i++){	
 			System.out.println("Step: " + i);
-			String input = scan.next("Which direction will you move?");
+			System.out.print("Which direction will you move?: ");
+			String input = scan.next();
 			
-			//TODO: Implement board piece moving function please Jack;
-			 if (input == "N" || input == "S" || input == "E" || input == "W"){
+			//TODO: Implement board piece moving functions please Jack;
+			 if (input.equals("N")|| input.equals("S")|| input.equals("E")|| input.equals("W")){
+				 
 				 //Board method to check whether they can move that direction
 				 //if (!board.canMove(input)){ Error Handling Here }
 				 //board.move(input)
-				 System.out.println(input);
+				 
+				 //Better solution would be InputManager -> ClueGame -> Board , instead of InputManager -> Board
+				 
+				 System.out.println("You moved " + input);
 			 } else {
-				 System.out.println("That is an incorrect Input");
+				 System.out.println(input + " is an Unrecognised Input");
 				 i--;
 			 }
 			

@@ -17,18 +17,47 @@ public class ClueGame {
 	public Board board = new Board();
 	public InputManager input = new InputManager(this, board);
 	
+	public Player[] players;
+	int numPly;
+	public Player activePlayer;
 	
+	private boolean endTurn = false;
 	
 	public ClueGame(){
 		fillClueSets();
 		solution = generateSolution();
 		
+		//Setting up players.
+		System.out.print("How many Players?: ");
+		String numPlyStr = input.getInput();
+		//if (numPlyStr.) Do input checking later.
+		numPly = Integer.parseInt(numPlyStr);
+		players = new Player[numPly];
+		for (int i = 0; i < numPly; i++){
+			players[i] = new Player (i + 1);
+		}
+		
+		activePlayer = players[0];
+		
+		
 		// Main game loop
 		while (true){
-			input.processNewInput();
+			System.out.println("It is Player: " + activePlayer.getNumber() + "'s turn.");
+			endTurn = false;
+			while (endTurn == false){				
+				input.processNewInput();
+			}
 		}
 	}
 	
+	public void endTurn(){
+		endTurn = true;
+		if (activePlayer.getNumber() == numPly){
+			activePlayer = players[0]; //Set back to first player.
+		} else {
+			activePlayer = players[activePlayer.getNumber()]; //Increase active player
+		}
+	}
 	
 	//Fills the sets with the clue objects
 	//TODO: Optimise this later.
