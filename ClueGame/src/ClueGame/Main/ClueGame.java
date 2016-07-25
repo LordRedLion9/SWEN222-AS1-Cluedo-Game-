@@ -15,7 +15,7 @@ public class ClueGame {
 	public Solution solution;
 	
 	public Board board = new Board();
-	public InputManager input = new InputManager(this, board);
+	public InputManager input = new InputManager(this);
 	
 	public Player[] players;
 	int numPly;
@@ -44,13 +44,25 @@ public class ClueGame {
 		while (true){
 			System.out.println("It is Player: " + activePlayer.getNumber() + "'s turn.");
 			endTurn = false;
-			while (endTurn == false){				
+			while (!endTurn){				
 				input.processNewInput();
 			}
+			
+			
+			System.out.println("Exiting loop");
 		}
 	}
 	
+	public boolean movePlayer(Player p, String dir){
+		Character c = p.getCharacter();
+		//return board.move(c, dir);
+		return true; //Debug
+	}
+	
+	
+	
 	public void endTurn(){
+		System.out.println("Ending turn..");
 		endTurn = true;
 		if (activePlayer.getNumber() == numPly){
 			activePlayer = players[0]; //Set back to first player.

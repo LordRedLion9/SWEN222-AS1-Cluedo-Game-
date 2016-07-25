@@ -9,11 +9,10 @@ public class InputManager {
 	
 	private Scanner scan = new Scanner (System.in);
 	private ClueGame game;
-	private Board board;
 	
-	public InputManager(ClueGame game, Board board){
+	
+	public InputManager(ClueGame game){
 		this.game = game;
-		this.board = board;
 	}
 	
 	public String getInput(){
@@ -33,12 +32,16 @@ public class InputManager {
 		switch (input){
 			case "MOVE":
 				moveCommand();
+				break;
 			case "SUGGEST":
 				//suggest process
+				break;
 			case "ACCUSE":
 				//accuse process
+				break;
 			case "END":
 				game.endTurn();
+				break;
 			
 		}
 			
@@ -63,7 +66,13 @@ public class InputManager {
 				 
 				 //Better solution would be InputManager -> ClueGame -> Board , instead of InputManager -> Board
 				 
-				 System.out.println("You moved " + input);
+				 if (game.movePlayer(game.activePlayer, input)){
+					 System.out.println("You moved " + input);
+				 } else {
+					 System.out.println("You cannot move " + input);
+					 i--;
+				 }
+				 
 			 } else {
 				 System.out.println(input + " is an Unrecognised Input");
 				 i--;
