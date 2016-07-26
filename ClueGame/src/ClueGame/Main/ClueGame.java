@@ -43,8 +43,17 @@ public class ClueGame {
 		
 		activePlayer = players[0];
 		
-		// draw the board (use when needed!)
+		// draw the board example (use when needed!)
 		//System.out.println(board.renderBoard());
+		
+		// how to move a player example (use when needed!)
+		/*
+		int diceRollsleft = 5;
+		if(board.movePlayer(board.DOWN))
+			diceRollsleft --;
+		if(board.movePlayer(board.LEFT))
+			diceRollsleft --;
+		*/
 		
 		
 		// Main game loop
