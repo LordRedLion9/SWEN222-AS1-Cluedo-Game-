@@ -66,23 +66,6 @@ public class Board {
 	};
 		
 	
-	// inner class used to hold data relating to rooms and their doors
-	class RoomData{
-			
-		public Location.LocName locName;
-		private List<Coordinate> doors;
-		
-		public RoomData(Location.LocName locName, Coordinate roomTopLeft, Coordinate roomBottomRight){
-			//FIXME incomplete
-		}
-		
-		public boolean ownsDoor(Coordinate location){
-			//FIXME incomplete
-			return false;
-		} 
-	}
-	
-
 	public Board(ClueGame main){	
 		this.main = main;
 	}
@@ -115,6 +98,7 @@ public class Board {
 		}
 	}
 	
+	
 	public boolean movePlayer(Player player, Coordinate dir){
 		
 		Coordinate newCord = getCordInDirection(player.getPosition(), dir);
@@ -124,8 +108,6 @@ public class Board {
 		
 		TileType tile = 	getTileAtCord(newCord);
 		TileType prevTile = getTileAtCord(player.getPosition());
-		
-		
 		
 		switch (tile) {
 		case EDGE:
@@ -150,6 +132,7 @@ public class Board {
 			for(RoomData room : roomData){
 				if(room.ownsDoor(newCord)){
 					player.setCurrentRoom(room.locName);
+					break;
 				}
 			}
 			
