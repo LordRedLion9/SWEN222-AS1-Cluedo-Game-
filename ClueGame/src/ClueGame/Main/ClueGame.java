@@ -43,7 +43,8 @@ public class ClueGame {
 		
 		activePlayer = players[0];
 		
-		System.out.println(board.renderBoard());
+		// draw the board (use when needed!)
+		//System.out.println(board.renderBoard());
 		
 		
 		// Main game loop
