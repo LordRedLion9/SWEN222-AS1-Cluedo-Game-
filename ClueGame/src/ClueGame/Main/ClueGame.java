@@ -49,9 +49,9 @@ public class ClueGame {
 		// how to move a player example (use when needed!)
 		/*
 		int diceRollsleft = 5;
-		if(board.movePlayer(board.DOWN))
+		if(board.movePlayer(player, board.DOWN))
 			diceRollsleft --;
-		if(board.movePlayer(board.LEFT))
+		if(board.movePlayer(player, board.LEFT))
 			diceRollsleft --;
 		*/
 		
