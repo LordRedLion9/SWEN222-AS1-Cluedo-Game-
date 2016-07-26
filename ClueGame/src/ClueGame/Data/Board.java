@@ -66,11 +66,13 @@ public class Board {
 	};
 		
 	
+	
 	public Board(ClueGame main){	
 		this.main = main;
 	}
 	
 	
+	// place a player on the board in an available start tile
 	public void spawnPlayer(Player player){
 		
 		List<Coordinate> startOptions = getTilesOfType(TileType.START);
@@ -99,56 +101,41 @@ public class Board {
 	}
 	
 	
+	// move a player in a given direction (use direction constants!)
 	public boolean movePlayer(Player player, Coordinate dir){
 		
-		Coordinate newCord = getCordInDirection(player.getPosition(), dir);
-		
-		if(!isValidCord(newCord))
-			throw new RuntimeException("invalid coordinate!");
-		
-		TileType tile = 	getTileAtCord(newCord);
-		TileType prevTile = getTileAtCord(player.getPosition());
-		
-		switch (tile) {
-		case EDGE:
-			return false;
+		Coordinate newCord = getCordInDirection(player.getPosition(), dir);	
+		TileType tile = getTileAtCord(newCord);
 
-		case EMPTY:
-			
+		if(player.inRoom()){
 			// we are leaving a room
-			if(player.inRoom()){
-				player.setCurrentRoom(null);
-			}
-			
-			player.setPosition(newCord);
+			player.setPosition(getRoomData(player.getCurrentRoom()).getDoorInDir(dir));
+			player.setCurrentRoom(null);
 			return true;
-
-		case ROOM:
+		}
+		else if(tile == TileType.EDGE || tile == TileType.ROOM){
+			// we can't move to this tile
 			return false;
-
-		case ROOMENTRY:
-			
+		}
+		else if (tile == TileType.ROOMENTRY){
 			// we are entering a room
 			for(RoomData room : roomData){
 				if(room.ownsDoor(newCord)){
 					player.setCurrentRoom(room.locName);
-					break;
+					return true;
 				}
 			}
-			
-			player.setPosition(newCord);
-			return true;
-
-		case START:
-			
-			player.setPosition(newCord);
-			return true;
-			
+			return false;
 		}
-		return false;
+		else{
+			// we are moving to an empty tile
+			player.setPosition(newCord);
+			return true;
+		}
 	}
 	
 	
+	// generate the string to display the board in ASCII
 	public String renderBoard(){
 		
 		String textBoard = "";
@@ -171,6 +158,17 @@ public class Board {
 	}
 	
 	
+	// get the relevant RoomData for a given location
+	private RoomData getRoomData(LocName loc){
+		for(RoomData room : roomData){
+			if(room.locName == loc)
+				return room;
+		}
+		return null;
+	}
+	
+	
+	// get all tiles on the board of a given type
 	private List<Coordinate> getTilesOfType(TileType tile){
 		
 		List<Coordinate> foundTiles = new ArrayList<Coordinate>();
@@ -184,6 +182,8 @@ public class Board {
 		return foundTiles;
 	}
 	
+	
+	// get the tile at the given position
 	private TileType getTileAtCord(Coordinate cord){
 		
 		for(int row = 0; row < tiles.length; row++){
@@ -198,6 +198,7 @@ public class Board {
 	}
 	
 	
+	// get the player at the given position
 	private Player playerAtCord(Coordinate cord){
 		
 		for(Player checkPlayer : main.getPlayers()){
@@ -208,10 +209,12 @@ public class Board {
 		return null;
 	}
 	
+	
 	// returns the cord in the chosen direction (use the direction constants!)
 	private Coordinate getCordInDirection(Coordinate pos, Coordinate dir){
 		return new Coordinate(pos.row + dir.row, pos.col + dir.col);
 	}
+	
 	
 	// make sure a cord is within the playable board;
 	private boolean isValidCord(Coordinate cord){
