@@ -17,10 +17,10 @@ public class ClueGame {
 	
 	public Solution solution;
 	
-	public Board board = new Board();
+	public Board board = new Board(this);
 	public InputManager input = new InputManager(this);
 	
-	public Player[] players;
+	private Player[] players;
 	int numPly;
 	public Player activePlayer;
 	
@@ -38,9 +38,12 @@ public class ClueGame {
 		players = new Player[numPly];
 		for (int i = 0; i < numPly; i++){
 			players[i] = new Player (i + 1);
+			board.spawnPlayer(players[i]);
 		}
 		
 		activePlayer = players[0];
+		
+		System.out.println(board.renderBoard());
 		
 		
 		// Main game loop
@@ -60,6 +63,10 @@ public class ClueGame {
 		Character c = p.getCharacter();
 		//return board.move(c, dir);
 		return true; //Debug
+	}
+	
+	public Player[] getPlayers(){
+		return players;
 	}
 	
 	
