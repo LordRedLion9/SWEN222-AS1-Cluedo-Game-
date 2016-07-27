@@ -26,7 +26,7 @@ public class Board {
 		{4,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,4},
 		{4,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,0,2,1,1,1,1,4},
 		{4,1,1,1,1,1,0,0,2,1,1,1,1,1,1,2,0,0,0,1,1,1,1,4},
-		{4,1,1,1,2,1,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,4},
+		{4,1,1,1,2,1,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,3},
 		{4,0,0,0,0,0,0,0,1,2,1,1,1,1,2,1,0,0,0,0,0,0,0,4},
 		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,4},
 		{4,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,1,1,1,4},
@@ -37,14 +37,14 @@ public class Board {
 		{4,1,1,1,1,1,1,1,0,0,4,4,4,4,4,0,0,0,1,1,2,1,1,4},
 		{4,1,1,1,1,1,2,1,0,0,4,4,4,4,4,0,0,1,1,1,1,1,1,4},
 		{4,0,0,0,0,0,0,0,0,0,4,4,4,4,4,0,0,2,1,1,1,1,1,4},
-		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,4},
+		{3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,4},
 		{4,0,0,0,0,0,0,0,0,1,1,2,2,1,1,0,0,0,1,1,1,1,1,4},
-		{4,1,1,1,1,1,2,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,4},
+		{4,1,1,1,1,1,2,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,3},
 		{4,1,1,1,1,1,1,0,0,1,1,1,1,1,2,0,0,0,0,0,0,0,0,4},
 		{4,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,2,1,1,1,1,1,4},
 		{4,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,4},
 		{4,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,4},
-		{4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4}
+		{4,4,4,4,4,4,4,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4}
 	};
 	
 	// the char values used to represent players on the board in ASCII
@@ -113,21 +113,30 @@ public class Board {
 		Coordinate newCord = getCordInDirection(player.getPosition(), dir);	
 		TileType tile = getTileAtCord(newCord);
 
-		if(playerAtCord(newCord) != null){
+		if(isValidCord(newCord)){
+			
+			// we are leaving the board!
+			return false;
+		}
+		else if(playerAtCord(newCord) != null){
+			
 			// another player is in this spot
 			return false;
 		}
 		else if(player.inRoom()){
+			
 			// we are leaving a room
 			player.setPosition(getRoomData(player.getCurrentRoom()).getDoorInDir(dir));
 			player.setCurrentRoom(null);
 			return true;
 		}
 		else if(tile == TileType.EDGE || tile == TileType.ROOM){
+			
 			// we can't move to this tile
 			return false;
 		}
 		else if (tile == TileType.ROOMENTRY){
+			
 			// we are entering a room
 			for(RoomData room : roomData){
 				if(room.ownsDoor(newCord)){
@@ -138,6 +147,7 @@ public class Board {
 			return false;
 		}
 		else{
+			
 			// we are moving to an empty tile
 			player.setPosition(newCord);
 			return true;
@@ -224,6 +234,14 @@ public class Board {
 	private Coordinate getCordInDirection(Coordinate pos, Coordinate dir){
 		return new Coordinate(pos.row + dir.row, pos.col + dir.col);
 	}	
+	
+	// make sure a cord is within the playable board;
+	 private boolean isValidCord(Coordinate cord){
+	 	return (
+	 			cord.row >= 0 && cord.row <= 23 &&
+	 			cord.col >= 0 && cord.col <= 23
+	 			);
+	 }
 	
 	
 	enum TileType{
