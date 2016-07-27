@@ -1,6 +1,9 @@
 package ClueGame.Data;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import ClueGame.Data.Board.TileType;
 
 //class used to hold data relating to rooms and their doors
 public class RoomData {
@@ -8,12 +11,31 @@ public class RoomData {
 	public Location.LocName locName;
 	private List<Coordinate> doors;
 	
-	public RoomData(Location.LocName locName, Coordinate roomTopLeft, Coordinate roomBottomRight){
-		//FIXME incomplete
+	
+	// automatically find and keep track of the doors to this room
+	public RoomData(Board board, Location.LocName locName, Coordinate roomTopLeft, Coordinate roomBottomRight){
+		
+		this.locName = locName;
+		doors = new ArrayList<Coordinate>();
+		
+		List<Coordinate> tiles = board.getTilesOfType(TileType.ROOMENTRY);
+		for(Coordinate cord : tiles){
+			if(	(cord.col >= roomTopLeft.col && cord.col <= roomBottomRight.col) && 
+				(cord.row >= roomTopLeft.row && cord.row <= roomBottomRight.row)){
+				doors.add(cord);
+			}	
+		}
+		// use to double check that rooms were set up properly
+		//System.out.println(locName + "_" + doors.size());
 	}
 	
+	// returns whether this door belongs to this room or not
 	public boolean ownsDoor(Coordinate location){
-		//FIXME incomplete
+		for(Coordinate cord : doors){
+			if(cord.equals(location)){
+				return true;
+			}
+		}
 		return false;
 	} 
 	

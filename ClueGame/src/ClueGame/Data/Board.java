@@ -21,29 +21,29 @@ public class Board {
 	
 	private final int[][] tiles =  new int[][] {
 		{4,4,4,4,4,4,4,4,4,3,1,4,4,4,3,4,4,4,4,4,4,4,4,4},
-		{4,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,2,1,1,1,1,1,1,2,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,4},
+		{4,1,1,1,1,1,4,0,0,0,1,1,1,1,0,0,0,4,1,1,1,1,1,4},
+		{4,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,4},
+		{4,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,4},
+		{4,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,0,2,1,1,1,1,4},
+		{4,1,1,1,1,1,0,0,2,1,1,1,1,1,1,2,0,0,0,1,1,1,1,4},
+		{4,1,1,1,2,1,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,4},
 		{4,0,0,0,0,0,0,0,1,2,1,1,1,1,2,1,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
+		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,4},
+		{4,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,1,1,1,4},
+		{4,1,1,1,1,1,1,1,0,0,4,4,4,4,4,0,0,0,1,1,1,1,1,4},
+		{4,1,1,1,1,1,1,1,0,0,4,4,4,4,4,0,0,0,1,1,1,1,1,4},
+		{4,1,1,1,1,1,1,2,0,0,4,4,4,4,4,0,0,0,1,1,1,1,2,4},
+		{4,1,1,1,1,1,1,1,0,0,4,4,4,4,4,0,0,0,0,0,0,0,0,4},
+		{4,1,1,1,1,1,1,1,0,0,4,4,4,4,4,0,0,0,1,1,2,1,1,4},
+		{4,1,1,1,1,1,2,1,0,0,4,4,4,4,4,0,0,1,1,1,1,1,1,4},
+		{4,0,0,0,0,0,0,0,0,0,4,4,4,4,4,0,0,2,1,1,1,1,1,4},
+		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,4},
+		{4,0,0,0,0,0,0,0,0,1,1,2,2,1,1,0,0,0,1,1,1,1,1,4},
+		{4,1,1,1,1,1,2,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,4},
+		{4,1,1,1,1,1,1,0,0,1,1,1,1,1,2,0,0,0,0,0,0,0,0,4},
+		{4,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,2,1,1,1,1,1,4},
+		{4,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,4},
+		{4,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,4},
 		{4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4}
 	};
 	
@@ -60,9 +60,15 @@ public class Board {
 	
 	// keep track of which door tiles on 
 	private RoomData[] roomData = new RoomData[] {
-			new RoomData(LocName.BALL_ROOM, new Coordinate(0,1), new Coordinate(10, 10)),
-			new RoomData(LocName.BILLIARD_ROOM, new Coordinate(0,1), new Coordinate(10, 10)),
-			new RoomData(LocName.CONSERVATORY, new Coordinate(0,1), new Coordinate(10, 10))
+			new RoomData(this, LocName.BALL_ROOM, 		new Coordinate(1,8), 	new Coordinate(7, 15)),
+			new RoomData(this, LocName.KITCHEN, 		new Coordinate(0,1), 	new Coordinate(6, 5)),
+			new RoomData(this, LocName.CONSERVATORY, 	new Coordinate(0,18), 	new Coordinate(5, 23)),
+			new RoomData(this, LocName.DINING_ROOM, 	new Coordinate(9,0), 	new Coordinate(15, 7)),
+			new RoomData(this, LocName.BILLIARD_ROOM,	new Coordinate(8,18), 	new Coordinate(12, 23)),
+			new RoomData(this, LocName.LIBRARY,	 		new Coordinate(14,17), 	new Coordinate(18, 23)),
+			new RoomData(this, LocName.LOUNGE, 			new Coordinate(19,0), 	new Coordinate(23, 6)),
+			new RoomData(this, LocName.HALL, 			new Coordinate(18,9), 	new Coordinate(23, 14)),
+			new RoomData(this, LocName.STUDY, 			new Coordinate(20,17), 	new Coordinate(23, 23)),
 	};
 		
 	
@@ -107,7 +113,11 @@ public class Board {
 		Coordinate newCord = getCordInDirection(player.getPosition(), dir);	
 		TileType tile = getTileAtCord(newCord);
 
-		if(player.inRoom()){
+		if(playerAtCord(newCord) != null){
+			// another player is in this spot
+			return false;
+		}
+		else if(player.inRoom()){
 			// we are leaving a room
 			player.setPosition(getRoomData(player.getCurrentRoom()).getDoorInDir(dir));
 			player.setCurrentRoom(null);
@@ -169,7 +179,7 @@ public class Board {
 	
 	
 	// get all tiles on the board of a given type
-	private List<Coordinate> getTilesOfType(TileType tile){
+	public List<Coordinate> getTilesOfType(TileType tile){
 		
 		List<Coordinate> foundTiles = new ArrayList<Coordinate>();
 		for(int row = 0; row < tiles.length; row++){
@@ -213,16 +223,7 @@ public class Board {
 	// returns the cord in the chosen direction (use the direction constants!)
 	private Coordinate getCordInDirection(Coordinate pos, Coordinate dir){
 		return new Coordinate(pos.row + dir.row, pos.col + dir.col);
-	}
-	
-	
-	// make sure a cord is within the playable board;
-	private boolean isValidCord(Coordinate cord){
-		return (
-				cord.row >= 0 && cord.row <= 23 &&
-				cord.col >= 0 && cord.col <= 23
-				);
-	}
+	}	
 	
 	
 	enum TileType{
