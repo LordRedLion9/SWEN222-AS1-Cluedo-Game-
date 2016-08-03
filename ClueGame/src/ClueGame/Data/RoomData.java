@@ -4,17 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ClueGame.Data.Board.TileType;
+import ClueGame.Main.ClueGame;
 
 //class used to hold data relating to rooms and their doors
 public class RoomData {
 				
 	public Location.LocName locName;
 	private List<Coordinate> doors;
+	private Board board;
 	
 	
 	// automatically find and keep track of the doors to this room
 	public RoomData(Board board, Location.LocName locName, Coordinate roomTopLeft, Coordinate roomBottomRight){
 		
+		this.board = board;
 		this.locName = locName;
 		doors = new ArrayList<Coordinate>();
 		
@@ -53,4 +56,17 @@ public class RoomData {
 		}
 		return best;
 	} 
+	
+	public Coordinate getNextEmptyDoor(ClueGame reference){
+		for (Coordinate cord : doors){
+			boolean playerFound = false;
+			for (Player p : reference.getPlayers()){
+				if(p.getPosition().equals(cord))
+					playerFound = true;
+			}
+			if(!playerFound)
+				return cord;
+		}
+		return doors.get(0);
+	}
 }

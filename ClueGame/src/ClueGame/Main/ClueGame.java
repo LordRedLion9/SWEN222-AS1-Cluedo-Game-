@@ -37,7 +37,7 @@ public class ClueGame {
 		}
 		shuffleAndFill();
 		activePlayer = players[0];
-				
+						
 		
 		// Main game loop
 		while (true){
@@ -73,7 +73,7 @@ public class ClueGame {
 				break;
 			}
 			nextPlayer++;
-		}
+		}	
 	}
 	
 	//Fills the sets with the clue objects

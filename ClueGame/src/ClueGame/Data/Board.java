@@ -160,6 +160,12 @@ public class Board {
 		}
 	}
 	
+	public void movePlayerToRoom(Player p, LocName loc){
+		Coordinate cord = getRoomData(loc).getNextEmptyDoor(main);
+		p.setCurrentRoom(loc);
+		p.setPosition(cord);
+	}
+	
 	public char getPlayerIcon(Player p){
 		return playerASCIIValues[p.getNumber()-1];
 	}
