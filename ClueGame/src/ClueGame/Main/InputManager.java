@@ -88,7 +88,10 @@ public class InputManager {
 				return;
 			
 			if (game.board.movePlayer(game.activePlayer, convertInputToVector(choice))){
-				System.out.println("You moved. Moves remaining" + canMove);
+				System.out.println("--------------");
+				System.out.println(game.board.renderBoard());
+				System.out.println("--------------");
+				System.out.println("You moved. Moves remaining : " + (canMove-1));
 				canMove--;
 			} else {
 				System.out.println("You cannot move here!");
