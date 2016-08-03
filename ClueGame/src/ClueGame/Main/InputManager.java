@@ -16,7 +16,7 @@ public class InputManager {
 	
 	private Scanner scan = new Scanner (System.in);
 	private ClueGame game;
-	
+	private boolean alreadyMoved;
 	
 	public InputManager(ClueGame game){
 		this.game = game;
@@ -27,11 +27,22 @@ public class InputManager {
 		if(game.activePlayer.inRoom()){ //Player in room
 			
 			System.out.println("You are in the " + game.activePlayer.getCurrentRoom().name() + ", choose your next move");
-			int choice = getActionFromList(new String[] {
-					"Move",
-					"Suggest",
-					"Accuse",
-					"End turn"});
+			int choice = 0;
+			if(alreadyMoved){
+				choice = getActionFromList(new String[] {
+						"Suggest",
+						"Accuse",
+						"End turn"});
+				choice ++;
+				alreadyMoved = false;
+			}
+			else{
+				choice = getActionFromList(new String[] {
+						"Move",
+						"Suggest",
+						"Accuse",
+						"End turn"});
+			}
 			
 			switch (choice){
 			case 0: //Move
@@ -176,6 +187,11 @@ public class InputManager {
 				System.out.println(game.board.renderBoard());
 				System.out.println("--------------");
 				System.out.println("You moved. Moves remaining : " + (canMove-1));
+				if(game.activePlayer.inRoom()){
+					System.out.println("you have entered the " + game.activePlayer.getCurrentRoom() + "!");
+					alreadyMoved = true;
+					processInput();
+				}
 				canMove--;
 			} else {
 				System.out.println("You cannot move here!");

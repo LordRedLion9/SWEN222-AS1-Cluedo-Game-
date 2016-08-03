@@ -25,8 +25,6 @@ public class RoomData {
 				doors.add(cord);
 			}	
 		}
-		// use to double check that rooms were set up properly
-		//System.out.println(locName + "_" + doors.size());
 	}
 	
 	// returns whether this door belongs to this room or not
@@ -55,4 +53,4 @@ public class RoomData {
 		}
 		return best;
 	} 
-	}
+}
