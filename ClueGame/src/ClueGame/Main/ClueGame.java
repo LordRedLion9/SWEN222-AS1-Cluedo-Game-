@@ -64,10 +64,15 @@ public class ClueGame {
 	
 	public void endTurn(){
 		System.out.println("Turn over.");
-		if (activePlayer.getNumber() == numPly){
-			activePlayer = players[0]; //Set back to first player.
-		} else {
-			activePlayer = players[activePlayer.getNumber()]; //Increase active player
+		int nextPlayer = activePlayer.getNumber();
+		while(true){
+			if (nextPlayer == numPly)
+				nextPlayer = 0;
+			if(players[nextPlayer].active()){
+				activePlayer = players[nextPlayer]; 
+				break;
+			}
+			nextPlayer++;
 		}
 	}
 	

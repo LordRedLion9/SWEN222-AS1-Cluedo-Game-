@@ -6,6 +6,7 @@ import ClueGame.Data.Location.LocName;
 
 public class Player {
 	
+	private boolean active = true;
 	private int playerNo;
 	private Character playerChar; //Still needs to be assigned
 	private Coordinate position;
@@ -15,6 +16,14 @@ public class Player {
 	
 	public void addToHand(Clue clue){
 		hand.add(clue);
+	}
+	
+	public boolean active(){
+		return active;
+	}
+	
+	public void enable(boolean val){
+		active = val;
 	}
 	
 	public void printHand(){
