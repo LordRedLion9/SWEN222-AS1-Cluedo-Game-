@@ -28,14 +28,14 @@ public class InputManager {
 					"End turn"});
 			
 			switch (choice){
-			case 0:
+			case 0: //Move
 				moveCommand();
 				break;
-			case 1:
+			case 1: //Suggest
 				return;
-			case 2:
+			case 2: //Accuse
 				return;
-			case 3:
+			case 3: //End Turn
 				return;
 			}	
 		}
@@ -47,10 +47,10 @@ public class InputManager {
 					"End turn"});
 			
 			switch (choice){
-			case 0:
+			case 0: //Move
 				moveCommand();
 				break;
-			case 1:
+			case 1: //End turn
 				return;
 			}	
 		}			

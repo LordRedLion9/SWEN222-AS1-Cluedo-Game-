@@ -1,6 +1,6 @@
 package ClueGame.Data;
 
-public class Character {
+public class Character implements Clue{
 
 private CharName name;
 	
@@ -17,7 +17,7 @@ private CharName name;
 		this.name = name;
 	}
 	
-	public CharName getName(){
-		return name;
+	public String getType(){
+		return name.name();
 	}
 }

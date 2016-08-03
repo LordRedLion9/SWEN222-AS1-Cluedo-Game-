@@ -1,13 +1,25 @@
 package ClueGame.Data;
+import java.util.ArrayList;
+
 import ClueGame.Data.Character;
 import ClueGame.Data.Location.LocName;
 
 public class Player {
 	
 	private int playerNo;
-	private Character playerChar;
+	private Character playerChar; //Still needs to be assigned
 	private Coordinate position;
 	private LocName currentRoom;
+	
+	ArrayList<Clue> hand = new ArrayList<Clue>();
+	
+	public void addToHand(Clue clue){
+		hand.add(clue);
+	}
+	
+	public ArrayList<Clue> getHand(){
+		return hand;
+	}
 	
 	public Player(int playerNo){
 		this.playerNo = playerNo;
@@ -18,7 +30,7 @@ public class Player {
 		return playerNo;
 	}
 	
-	public Character getCharacter(){
+	public Character getCharacter(){ //Currently dangerous, will return unwritten field.
 		return playerChar;
 	}
 	

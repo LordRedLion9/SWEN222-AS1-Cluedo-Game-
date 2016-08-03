@@ -1,6 +1,6 @@
 package ClueGame.Data;
 
-public class Location {
+public class Location implements Clue{
 	private LocName name;
 
 	public enum LocName {
@@ -20,7 +20,7 @@ public class Location {
 		this.name = name;
 	}
 
-	public LocName getName() {
-		return name;
+	public String getType() {
+		return name.name();
 	}
 }

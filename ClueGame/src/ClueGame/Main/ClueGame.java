@@ -35,7 +35,7 @@ public class ClueGame {
 			players[i] = new Player (i + 1);
 			board.spawnPlayer(players[i]);
 		}
-		
+		shuffleAndFill();
 		activePlayer = players[0];
 		
 		// draw the board example (use when needed!)
@@ -131,12 +131,30 @@ public class ClueGame {
 		return new Solution(toAddChar, toAddWep, toAddLoc);
 	}
 	
+	public void shuffleAndFill(){
+		ArrayList<Clue> deck = new ArrayList<Clue>();
+		deck.addAll(weapons);
+		deck.addAll(characters);
+		deck.addAll(locations);
+		Collections.shuffle(deck);
+		Collections.shuffle(deck); //Shuffle twice to be sure
+		
+		int playerIndex = 0;
+		for (int i = 0; i < deck.size() - 1; i++){
+			if (playerIndex > numPly - 1){playerIndex = 0;}
+			players[playerIndex].addToHand(deck.get(i));
+			playerIndex++;
+		}
+		
+	}
+	
+	
 	//TODO: Maybe tidy this up
 	public boolean tryVictory(Character tryChar, Weapon tryWep, Location tryLoc){
 		
-		return (solution.getChar().getName() == tryChar.getName() 
-				&& solution.getWep().getType() == tryWep.getType()
-				&& solution.getLoc().getName() == tryLoc.getName());
+		return ((solution.getChar().getType()).equals(tryChar.getType()) 
+				&& (solution.getWep().getType()).equals(tryWep.getType())
+				&& (solution.getLoc().getType()).equals(tryLoc.getType()));
 			
 	}
 	

@@ -1,6 +1,6 @@
 package ClueGame.Data;
 
-public class Weapon {
+public class Weapon implements Clue{
 
 	private WeaponType type;
 	
@@ -17,8 +17,8 @@ public class Weapon {
 		this.type = type;
 	}
 	
-	public WeaponType getType(){
-		return type;
+	public String getType(){
+		return type.name();
 	}
 	
 }
