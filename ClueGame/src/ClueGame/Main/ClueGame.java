@@ -146,6 +146,18 @@ public class ClueGame {
 		
 	}
 	
+	public void makeSuggest(LocName loc, Weapon wep, Character cha){
+		for (int i = activePlayer.getNumber() /*player AFTER active player*/; i < numPly - 1; i++){
+			if (i > numPly){i = 0;}
+			for (Clue c : players[i].getHand()){			
+				if (wep.getType().equals(c.getType())){System.out.println("Player " + players[i].getNumber() + " has the " + c.getType()); return;}
+				if (cha.getType().equals(c.getType())){System.out.println("Player " + players[i].getNumber() + " has the " + c.getType()); return;}
+				if (loc.name().equals(c.getType())){System.out.println("Player " + players[i].getNumber() + " has the " + c.getType()); return;}
+			}
+		}
+		
+		System.out.println("None of the other players can refute you");
+	}
 	
 	//TODO: Maybe tidy this up
 	public boolean tryVictory(Character tryChar, Weapon tryWep, Location tryLoc){

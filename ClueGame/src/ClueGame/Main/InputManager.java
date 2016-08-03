@@ -3,6 +3,12 @@ package ClueGame.Main;
 import java.util.*;
 import ClueGame.Data.Board;
 import ClueGame.Data.Coordinate;
+import ClueGame.Data.Location;
+import ClueGame.Data.Location.LocName;
+import ClueGame.Data.Weapon;
+import ClueGame.Data.Weapon.WeaponType;
+import ClueGame.Data.Character;
+import ClueGame.Data.Character.CharName;
 
 public class InputManager {
 
@@ -32,7 +38,7 @@ public class InputManager {
 				moveCommand();
 				break;
 			case 1: //Suggest
-				return;
+				makeSuggestion();
 			case 2: //Accuse
 				return;
 			case 3: //End Turn
@@ -64,6 +70,75 @@ public class InputManager {
 		game.activePlayer.printHand();
 	}
 	
+	private void makeSuggestion(){
+		
+		LocName loc = game.activePlayer.getCurrentRoom();
+		Weapon wep = new Weapon(WeaponType.CANDLESTICK); //Default for init
+		Character cha = new Character(CharName.Colonel_Mustard); //Default for init
+		
+		System.out.println("Which weapon do you suggest?");
+		int choice = getActionFromList(new String[] {
+				"Candlestick",
+				"Dagger",
+				"Lead pipe",
+				"Revolver",
+				"Rope",
+				"Spanner"});
+		switch (choice){
+		case 1:
+			wep = new Weapon(WeaponType.CANDLESTICK);
+			break;
+		
+		case 2:
+			wep = new Weapon(WeaponType.DAGGER);
+			break;
+		case 3:
+			wep = new Weapon(WeaponType.LEADPIPE);
+			break;
+		case 4:
+			wep = new Weapon(WeaponType.REVOLVER);
+			break;
+		case 5:
+			wep = new Weapon(WeaponType.ROPE);
+			break;
+		case 6:
+			wep = new Weapon(WeaponType.SPANNER);
+			break;
+		}
+		
+		System.out.println("Which character do you suggest?");
+		choice = getActionFromList(new String[] {
+				"Colonel Mustard",
+				"Miss Scarlet",
+				"Mrs Peacock",
+				"Professor Plum",
+				"Mrs White",
+				"The Reverend Green"});
+		
+		switch (choice){
+		case 1:
+			cha = new Character(CharName.Colonel_Mustard);
+			break;
+		case 2:
+			cha = new Character(CharName.Miss_Scarlet);
+			break;
+		case 3:
+			cha = new Character(CharName.Mrs_Peacock);
+			break;
+		case 4:
+			cha = new Character(CharName.Professor_Plum);
+			break;
+		case 5:
+			cha = new Character(CharName.Mrs_White);
+			break;
+		case 6:
+			cha = new Character(CharName.The_Reverend_Green);
+			break;
+		}
+		
+		game.makeSuggest(loc, wep, cha);
+		
+	}
 	
 	private void moveCommand(){
 		
