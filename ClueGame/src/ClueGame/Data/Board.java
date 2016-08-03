@@ -117,7 +117,7 @@ public class Board {
 		System.out.println("new " + newCord.toString());
 		System.out.println("dir " + dir.toString());
 
-		if(isValidCord(newCord)){
+		if(!isValidCord(newCord)){
 			System.out.println("ERR not valid");
 			// we are leaving the board!
 			return false;
@@ -131,6 +131,7 @@ public class Board {
 			
 			// we are leaving a room
 			player.setPosition(getRoomData(player.getCurrentRoom()).getDoorInDir(dir));
+			player.setPosition(getNearestFreeSpace(player.getPosition()));
 			player.setCurrentRoom(null);
 			return true;
 		}
@@ -145,6 +146,7 @@ public class Board {
 			for(RoomData room : roomData){
 				if(room.ownsDoor(newCord)){
 					player.setCurrentRoom(room.locName);
+					player.setPosition(newCord);
 					return true;
 				}
 			}
@@ -236,6 +238,19 @@ public class Board {
 		}
 		return null;
 	}
+	
+	private Coordinate getNearestFreeSpace(Coordinate pos){
+		
+		if(getTileAtCord(getCordInDirection(pos, UP)) == TileType.EMPTY)
+			return getCordInDirection(pos, UP);
+		if(getTileAtCord(getCordInDirection(pos, DOWN)) == TileType.EMPTY)
+			return getCordInDirection(pos, DOWN);
+		if(getTileAtCord(getCordInDirection(pos, LEFT)) == TileType.EMPTY)
+			return getCordInDirection(pos, LEFT);
+		if(getTileAtCord(getCordInDirection(pos, RIGHT)) == TileType.EMPTY)
+			return getCordInDirection(pos, RIGHT);
+		return null;
+	} 
 	
 	
 	// returns the cord in the chosen direction (use the direction constants!)
