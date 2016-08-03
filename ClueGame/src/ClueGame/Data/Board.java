@@ -52,10 +52,10 @@ public class Board {
 	
 	
 	// coordinates that can be used to keep track of a movement direction	
-	public static final Coordinate UP = 	new Coordinate(0, 1);
-	public static final Coordinate DOWN = 	new Coordinate(0, -1);
-	public static final Coordinate LEFT = 	new Coordinate(-1, 0);
-	public static final Coordinate RIGHT = 	new Coordinate(1, 0);
+	public static final Coordinate UP = 	new Coordinate(1, 0);
+	public static final Coordinate DOWN = 	new Coordinate(-1, 0);
+	public static final Coordinate LEFT = 	new Coordinate(0, -1);
+	public static final Coordinate RIGHT = 	new Coordinate(0, 1);
 	
 	
 	// keep track of which door tiles on 
@@ -114,12 +114,12 @@ public class Board {
 		TileType tile = getTileAtCord(newCord);
 
 		if(isValidCord(newCord)){
-			
+			System.out.println("ERR not valid");
 			// we are leaving the board!
 			return false;
 		}
 		else if(playerAtCord(newCord) != null){
-			
+			System.out.println("ERR player at cord");
 			// another player is in this spot
 			return false;
 		}
@@ -131,7 +131,7 @@ public class Board {
 			return true;
 		}
 		else if(tile == TileType.EDGE || tile == TileType.ROOM){
-			
+			System.out.println("ERR not valid tile type " + tile + newCord.col + "_" + newCord.row);
 			// we can't move to this tile
 			return false;
 		}
@@ -152,6 +152,10 @@ public class Board {
 			player.setPosition(newCord);
 			return true;
 		}
+	}
+	
+	public char getPlayerIcon(Player p){
+		return playerASCIIValues[p.getNumber()-1];
 	}
 	
 	
@@ -213,7 +217,7 @@ public class Board {
 				}
 			}
 		}
-		
+		System.out.println("ERR failed to find tile");
 		return(TileType.EDGE);
 	}
 	

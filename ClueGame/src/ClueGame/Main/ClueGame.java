@@ -23,18 +23,13 @@ public class ClueGame {
 	private Player[] players;
 	int numPly;
 	public Player activePlayer;
-	
-	private boolean endTurn = false;
-	
+		
 	public ClueGame(){
 		fillClueSets();
 		solution = generateSolution();
 		
 		//Setting up players.
-		System.out.print("How many Players?: ");
-		String numPlyStr = input.getInput();
-		//if (numPlyStr.) Do input checking later.
-		numPly = Integer.parseInt(numPlyStr);
+		numPly = input.getPlayerCount();
 		players = new Player[numPly];
 		for (int i = 0; i < numPly; i++){
 			players[i] = new Player (i + 1);
@@ -58,22 +53,16 @@ public class ClueGame {
 		
 		// Main game loop
 		while (true){
-			System.out.println("It is Player: " + activePlayer.getNumber() + "'s turn.");
-			endTurn = false;
-			while (!endTurn){				
-				input.processNewInput();
-			}
-			
-			
-			System.out.println("Exiting loop");
+			System.out.println("--------------");
+			System.out.println(board.renderBoard());
+			System.out.println("--------------");
+			System.out.println("It is Player: " + activePlayer.getNumber() + "'s (" + board.getPlayerIcon(activePlayer) + ") turn.");	
+			System.out.println("--------------");
+			input.processInput();			
+			endTurn();
 		}
 	}
 	
-	public boolean movePlayer(Player p, String dir){
-		Character c = p.getCharacter();
-		//return board.move(c, dir);
-		return true; //Debug
-	}
 	
 	public Player[] getPlayers(){
 		return players;
@@ -82,8 +71,7 @@ public class ClueGame {
 	
 	
 	public void endTurn(){
-		System.out.println("Ending turn..");
-		endTurn = true;
+		System.out.println("Turn over.");
 		if (activePlayer.getNumber() == numPly){
 			activePlayer = players[0]; //Set back to first player.
 		} else {
