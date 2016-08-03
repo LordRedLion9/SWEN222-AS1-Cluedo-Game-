@@ -112,18 +112,19 @@ public class Board {
 		
 		Coordinate newCord = getCordInDirection(player.getPosition(), dir);	
 		TileType tile = getTileAtCord(newCord);
+		
 		/*
-		System.out.println("old " + player.getPosition().toString());
-		System.out.println("new " + newCord.toString());
-		System.out.println("dir " + dir.toString());
-*/
+		 * great for debugging movement!
+		 * System.out.println("old " + player.getPosition().toString());
+		 * System.out.println("new " + newCord.toString());
+		 * System.out.println("dir " + dir.toString());
+		 */
+		
 		if(!isValidCord(newCord)){
-			System.out.println("ERR not valid");
 			// we are leaving the board!
 			return false;
 		}
 		else if(playerAtCord(newCord) != null){
-			System.out.println("ERR player at cord");
 			// another player is in this spot
 			return false;
 		}
@@ -136,7 +137,6 @@ public class Board {
 			return true;
 		}
 		else if(tile == TileType.EDGE || tile == TileType.ROOM){
-			System.out.println("ERR not valid tile type");
 			// we can't move to this tile
 			return false;
 		}
