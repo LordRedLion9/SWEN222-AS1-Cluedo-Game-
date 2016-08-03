@@ -29,5 +29,9 @@ public class Coordinate {
 		if (col != other.col || row != other.row)
 			return false;
 		return true;
-	}		
+	}	
+	
+	public String toString(){
+		return "[ROW(y) : " + row + " COL(x) : " + col + "]";
+	}
 }

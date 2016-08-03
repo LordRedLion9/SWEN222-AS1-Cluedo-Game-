@@ -58,7 +58,6 @@ public class InputManager {
 	
 	private void moveCommand(){
 		
-		
 		int canMove = game.rollDice();
 		System.out.println("You rolled: " + canMove);
 		

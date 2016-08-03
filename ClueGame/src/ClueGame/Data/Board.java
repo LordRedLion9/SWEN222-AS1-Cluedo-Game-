@@ -52,8 +52,8 @@ public class Board {
 	
 	
 	// coordinates that can be used to keep track of a movement direction	
-	public static final Coordinate UP = 	new Coordinate(1, 0);
-	public static final Coordinate DOWN = 	new Coordinate(-1, 0);
+	public static final Coordinate UP = 	new Coordinate(-1, 0);
+	public static final Coordinate DOWN = 	new Coordinate(1, 0);
 	public static final Coordinate LEFT = 	new Coordinate(0, -1);
 	public static final Coordinate RIGHT = 	new Coordinate(0, 1);
 	
@@ -112,6 +112,10 @@ public class Board {
 		
 		Coordinate newCord = getCordInDirection(player.getPosition(), dir);	
 		TileType tile = getTileAtCord(newCord);
+		
+		System.out.println("old " + player.getPosition().toString());
+		System.out.println("new " + newCord.toString());
+		System.out.println("dir " + dir.toString());
 
 		if(isValidCord(newCord)){
 			System.out.println("ERR not valid");
@@ -131,7 +135,7 @@ public class Board {
 			return true;
 		}
 		else if(tile == TileType.EDGE || tile == TileType.ROOM){
-			System.out.println("ERR not valid tile type " + tile + newCord.col + "_" + newCord.row);
+			System.out.println("ERR not valid tile type");
 			// we can't move to this tile
 			return false;
 		}
@@ -242,8 +246,8 @@ public class Board {
 	// make sure a cord is within the playable board;
 	 private boolean isValidCord(Coordinate cord){
 	 	return (
-	 			cord.row >= 0 && cord.row <= 23 &&
-	 			cord.col >= 0 && cord.col <= 23
+	 			cord.row >= 0 && cord.row <= 24 &&
+	 			cord.col >= 0 && cord.col <= 24
 	 			);
 	 }
 	

@@ -63,6 +63,10 @@ public class ClueGame {
 		}
 	}
 	
+	public static void main(String[] args) {
+		new ClueGame();
+	}
+	
 	
 	public Player[] getPlayers(){
 		return players;
