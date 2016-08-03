@@ -18,7 +18,7 @@ public class InputManager {
 	
 	public void processInput(){
 
-		if(game.activePlayer.inRoom()){
+		if(game.activePlayer.inRoom()){ //Player in room
 			
 			System.out.println("You are in the " + game.activePlayer.getCurrentRoom().name() + ", choose your next move");
 			int choice = getActionFromList(new String[] {
@@ -39,7 +39,7 @@ public class InputManager {
 				return;
 			}	
 		}
-		else{
+		else{ //Player not in room
 			
 			System.out.println("Choose your next move");
 			int choice = getActionFromList(new String[] {
