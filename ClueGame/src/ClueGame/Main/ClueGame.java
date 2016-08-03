@@ -100,16 +100,14 @@ public class ClueGame {
 		characters.add(new Character(CharName.Professor_Plum));
 		characters.add(new Character(CharName.The_Reverend_Green));
 		
-		locations.add(new Location(LocName.BALL_ROOM));
-		locations.add(new Location(LocName.BILLIARD_ROOM));
-		locations.add(new Location(LocName.CONSERVATORY));
-		locations.add(new Location(LocName.BILLIARD_ROOM));
-		locations.add(new Location(LocName.CONSERVATORY));
-		locations.add(new Location(LocName.DINING_ROOM));
-		locations.add(new Location(LocName.HALL));
-		locations.add(new Location(LocName.KITCHEN));
+		locations.add(new Location(LocName.BALL_ROOM));//
+		locations.add(new Location(LocName.BILLIARD_ROOM));//
+		locations.add(new Location(LocName.CONSERVATORY));//
+		locations.add(new Location(LocName.DINING_ROOM));//
+		locations.add(new Location(LocName.HALL));//
+		locations.add(new Location(LocName.KITCHEN));//
 		locations.add(new Location(LocName.LIBRARY));
-		locations.add(new Location(LocName.LOUNGE));
+		locations.add(new Location(LocName.LOUNGE));//
 		locations.add(new Location(LocName.STUDY));
 	}
 	
@@ -140,7 +138,7 @@ public class ClueGame {
 		Collections.shuffle(deck); //Shuffle twice to be sure
 		
 		int playerIndex = 0;
-		for (int i = 0; i < deck.size() - 1; i++){
+		for (int i = 0; i < deck.size(); i++){
 			if (playerIndex > numPly - 1){playerIndex = 0;}
 			players[playerIndex].addToHand(deck.get(i));
 			playerIndex++;

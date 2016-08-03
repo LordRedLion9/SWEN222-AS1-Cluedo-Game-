@@ -17,6 +17,24 @@ public class Player {
 		hand.add(clue);
 	}
 	
+	public void printHand(){
+		for (Clue c : hand){
+			if (c instanceof Location){
+				System.out.println(c.getType());
+			}
+		}
+		for (Clue c : hand){
+			if (c instanceof Character){
+				System.out.println(c.getType());
+			}
+		}
+		for (Clue c : hand){
+			if (c instanceof Weapon){
+				System.out.println(c.getType());
+			}
+		}
+	}
+	
 	public ArrayList<Clue> getHand(){
 		return hand;
 	}

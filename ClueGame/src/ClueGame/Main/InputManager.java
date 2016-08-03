@@ -44,17 +44,26 @@ public class InputManager {
 			System.out.println("Choose your next move");
 			int choice = getActionFromList(new String[] {
 					"Move",
+					"View Cards",
 					"End turn"});
 			
 			switch (choice){
 			case 0: //Move
 				moveCommand();
 				break;
-			case 1: //End turn
+			case 1: //Print hand
+				printHand();
+				break;
+			case 2: //End turn
 				return;
 			}	
 		}			
 	}
+	
+	private void printHand(){
+		game.activePlayer.printHand();
+	}
+	
 	
 	private void moveCommand(){
 		
