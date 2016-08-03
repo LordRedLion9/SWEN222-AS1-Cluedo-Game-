@@ -112,11 +112,11 @@ public class Board {
 		
 		Coordinate newCord = getCordInDirection(player.getPosition(), dir);	
 		TileType tile = getTileAtCord(newCord);
-		
+		/*
 		System.out.println("old " + player.getPosition().toString());
 		System.out.println("new " + newCord.toString());
 		System.out.println("dir " + dir.toString());
-
+*/
 		if(!isValidCord(newCord)){
 			System.out.println("ERR not valid");
 			// we are leaving the board!
