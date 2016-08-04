@@ -30,7 +30,14 @@ public class RoomData {
 		}
 	}
 	
-	// returns whether this door belongs to this room or not
+	/**
+	 * 
+	 * Returns whether the location given is a door that
+	 * belongs to this room
+	 * 
+	 * @param location the coordinate to check
+	 * @return boolean of if coordinate is owned door
+	 */
 	public boolean ownsDoor(Coordinate location){
 		for(Coordinate cord : doors){
 			if(cord.equals(location)){
@@ -41,7 +48,15 @@ public class RoomData {
 	} 
 	
 	
-	// returns the door in the given direction
+	/**
+	 * 
+	 * Returns the closest door in the room that
+	 * corresponds to the given direction
+	 * 
+	 * 
+	 * @param dir The coordinate to check
+	 * @return The coordinate of the closest door
+	 */
 	public Coordinate getDoorInDir(Coordinate dir){
 		
 		Coordinate best = doors.get(0);

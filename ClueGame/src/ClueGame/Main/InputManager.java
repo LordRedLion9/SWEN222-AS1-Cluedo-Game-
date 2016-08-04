@@ -22,6 +22,12 @@ public class InputManager {
 		this.game = game;
 	}
 	
+	/**
+	 * 
+	 * Deals with all a players input for their turn.
+	 * 
+	 * @param cannotMove Boolean for whether the player is allowed to move.
+	 */
 	public void processInput(boolean cannotMove){
 		boolean loop = true;
 		while (loop){
@@ -87,6 +93,12 @@ public class InputManager {
 		}	
 	}
 	
+	/**
+	 * 
+	 * Calls the active player to print the clues in
+	 * their hand.
+	 * 
+	 */
 	private void printHand(){
 		System.out.println();
 		System.out.println("You have the following clues: ");
@@ -94,6 +106,13 @@ public class InputManager {
 		System.out.println();
 	}
 	
+	/**
+	 * 
+	 * Takes input for making a suggestion and calls the makeSuggest method
+	 * in ClueGame with those inputs.
+	 * 
+	 * 
+	 */
 	private void makeSuggestion(){
 		
 		LocName loc = game.activePlayer.getCurrentRoom();
@@ -164,6 +183,13 @@ public class InputManager {
 		
 	}
 	
+	/**
+	 * 
+	 * Takes input for a player making an accusal and calls
+	 * the makeAccusal method in ClueGame
+	 * 
+	 * 
+	 */
 	private void makeAccusal(){
 		Location loc = new Location(LocName.BALL_ROOM);
 		Weapon wep = new Weapon(WeaponType.CANDLESTICK); //Default for init
@@ -276,6 +302,11 @@ public class InputManager {
 		game.makeAccusal(cha, loc, wep);
 	}
 	
+	/**
+	 * 
+	 * Takes in the input for players moving and calls the board to move the player.
+	 * 
+	 */
 	private void moveCommand(){
 		
 		int canMove = game.rollDice();
@@ -330,6 +361,12 @@ public class InputManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * Asks for number of players
+	 * 
+	 * @return number of players
+	 */
 	public int getPlayerCount(){
 		System.out.println("How many players do you want?");
 		return getActionFromList(new String[] {
@@ -337,9 +374,18 @@ public class InputManager {
 				"",
 				"",
 				"",
+				"",
 				"" }) + 1;	
 	}
 	
+	/**
+	 * 
+	 * Takes an integer (0-3) for the player moving 
+	 * and returns the corresponding correct board coordinate.
+	 * 
+	 * @param input input for movement direction.
+	 * @return Coordinate of resulting movement.
+	 */
 	private Coordinate convertInputToVector(int input){
 		switch(input){
 		case 0:
@@ -355,6 +401,16 @@ public class InputManager {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * Takes a list of actions the player
+	 * can take and asks for the user to input a number corresponding to the
+	 * list.
+	 * 
+	 * 
+	 * @param list The list of actions
+	 * @return The integer corresponding to the action the player selects.
+	 */
 	private int getActionFromList(String[] list){
 		for (int i = 1; i <= list.length; i++){	
 			System.out.println(i + " : " + list[i-1]);

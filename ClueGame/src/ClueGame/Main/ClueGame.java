@@ -50,7 +50,7 @@ public class ClueGame {
 			System.out.println("--------------");
 			System.out.println(board.renderBoard());
 			System.out.println("--------------");
-			System.out.println("It is Player: " + activePlayer.getNumber() + "'s (" + board.getPlayerIcon(activePlayer) + ") turn.");	
+			System.out.println("It is Player: " + activePlayer.getNumber() + "'s [" + board.getPlayerIcon(activePlayer) + "] turn.");	
 			System.out.println("You are playing as " + activePlayer.getCharacter().getType());	
 			System.out.println("--------------");
 			input.processInput(false);			
@@ -68,7 +68,12 @@ public class ClueGame {
 	}
 	
 	
-	
+	/**
+	 * 
+	 * End the current players turn and
+	 * determines the next player
+	 * 
+	 */
 	public void endTurn(){
 		System.out.println("Turn over.");
 		int nextPlayer = activePlayer.getNumber();
@@ -83,8 +88,12 @@ public class ClueGame {
 		}	
 	}
 	
-	//Fills the sets with the clue objects
-	//TODO: Optimise this later.
+	/**
+	 * 
+	 * Fills the clue arrays with
+	 * new instances of the clues.
+	 * 
+	 */
 	public void fillClueSets(){
 		weapons.add(new Weapon(WeaponType.CANDLESTICK));
 		weapons.add(new Weapon(WeaponType.DAGGER));
@@ -111,7 +120,13 @@ public class ClueGame {
 		locations.add(new Location(LocName.STUDY));
 	}
 	
-	//Generates the enveloped solution
+	/**
+	 * Takes clues out of the clues array and
+	 * generates the enveloped solution for the game.
+	 * 
+	 * 
+	 * @return The Solution object containing the solution clues
+	 */
 	public Solution generateSolution(){
 		Location toAddLoc;
 		Character toAddChar;
@@ -130,6 +145,11 @@ public class ClueGame {
 		return new Solution(toAddChar, toAddLoc , toAddWep);
 	}
 	
+	/**
+	 * Shuffles all the clue arrays into one, shuffles it, and
+	 * deals them out evenly to the players.
+	 * 
+	 */
 	public void shuffleAndFill(){
 		ArrayList<Clue> deck = new ArrayList<Clue>();
 		deck.addAll(weapons);
@@ -147,6 +167,16 @@ public class ClueGame {
 		
 	}
 	
+	/**
+	 * Takes three clue item and makes a cluedo suggestion.
+	 * Scans all other players hands (clockwise) to see if their hands contain
+	 * any of the suggested clues, and outputs if they do.
+	 * 
+	 * 
+	 * @param loc The suggested Location 
+	 * @param wep The suggested Weapon
+	 * @param cha The suggested Character
+	 */
 	public void makeSuggest(LocName loc, Weapon wep, Character cha){
 		for (Player p : players){
 			if (p.getCharacter().getType().equals(cha.getType())){board.movePlayerToRoom(p, loc);}
@@ -174,7 +204,15 @@ public class ClueGame {
 		System.out.println();
 	}
 	
-	//TODO: Maybe tidy this up
+	/**
+	 * Checks to see if paramater clues match the ones in the solution
+	 * 
+	 * 
+	 * @param tryChar The suggested Character
+	 * @param tryLoc The suggested Location
+	 * @param tryWep The suggested Weapon
+	 * @return boolean of whether all three parameters match the solution
+	 */
 	public boolean tryVictory(Character tryChar, Location tryLoc, Weapon tryWep){
 		
 		return ((solution.getChar().getType()).equals(tryChar.getType()) 
@@ -183,11 +221,27 @@ public class ClueGame {
 			
 	}
 	
-	
+	/**
+	 * 
+	 * Returns a dice roll.
+	 * 
+	 * @return integer from 1 to 6
+	 */
 	public int rollDice(){
 		return new Random().nextInt(6) + 1;
 	}
 
+	/**
+	 * Takes 3 suggested clues, and checks to see of they match the solution.
+	 * If so, then the active player is the winner.
+	 * If not, the current player has lost and can no longer take their turn.
+	 * 
+	 * 
+	 * @param cha The accused Character
+	 * @param loc The accused Location
+	 * @param wep The accused Weapon
+	 * @return boolean if whether accusal was correct
+	 */
 	public boolean makeAccusal(Character cha, Location loc, Weapon wep) {
 		
 		System.out.println();
