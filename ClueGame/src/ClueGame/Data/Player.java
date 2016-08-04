@@ -61,6 +61,10 @@ public class Player {
 		return playerChar;
 	}
 	
+	public void setCharacter(Character c){ //Currently dangerous, will return unwritten field.
+		this.playerChar = c;
+	}
+	
 	public Coordinate getPosition(){
 		return position;
 	}

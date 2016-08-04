@@ -28,18 +28,20 @@ public class ClueGame {
 		
 	public ClueGame(){
 		fillClueSets();
-		solution = generateSolution();
+		
 		
 		//Setting up players.
 		numPly = input.getPlayerCount();
 		players = new Player[numPly];
 		for (int i = 0; i < numPly; i++){
 			players[i] = new Player (i + 1);
+			players[i].setCharacter(characters.get(i));
 			board.spawnPlayer(players[i]);
 		}
 		shuffleAndFill();
 		activePlayer = players[0];
 						
+		solution = generateSolution();
 		
 		// Main game loop
 		while (true){
@@ -47,8 +49,9 @@ public class ClueGame {
 			System.out.println(board.renderBoard());
 			System.out.println("--------------");
 			System.out.println("It is Player: " + activePlayer.getNumber() + "'s (" + board.getPlayerIcon(activePlayer) + ") turn.");	
+			System.out.println("You are playing as " + activePlayer.getCharacter().getType());	
 			System.out.println("--------------");
-			input.processInput();			
+			input.processInput(false);			
 			endTurn();
 		}
 	}
@@ -88,9 +91,9 @@ public class ClueGame {
 		weapons.add(new Weapon(WeaponType.ROPE));
 		weapons.add(new Weapon(WeaponType.SPANNER));
 		
-		characters.add(new Character(CharName.Colonel_Mustard));
-		characters.add(new Character(CharName.Miss_Scarlet));
 		characters.add(new Character(CharName.Mrs_Peacock));
+		characters.add(new Character(CharName.Colonel_Mustard));
+		characters.add(new Character(CharName.Miss_Scarlet));	
 		characters.add(new Character(CharName.Mrs_White));
 		characters.add(new Character(CharName.Professor_Plum));
 		characters.add(new Character(CharName.The_Reverend_Green));
@@ -142,16 +145,30 @@ public class ClueGame {
 	}
 	
 	public void makeSuggest(LocName loc, Weapon wep, Character cha){
-		for (int i = activePlayer.getNumber() /*player AFTER active player*/; i < numPly - 1; i++){
-			if (i > numPly){i = 0;}
+		for (Player p : players){
+			if (p.getCharacter().getType().equals(cha.getType())){board.movePlayerToRoom(p, loc);}
+		}
+		
+		System.out.println();
+		System.out.println("You are suggesting it was:");
+		System.out.println(cha.getType() + " in the "  + loc.name()+ " with the " + wep.getType());
+		System.out.println();
+		
+		int i = activePlayer.getNumber(); //Technically player AFTER active player in terms of array
+		
+		for (int k = 0 /*player AFTER active player*/; k < numPly - 1; k++){
+			if (i == numPly){i = 0;}
 			for (Clue c : players[i].getHand()){			
 				if (wep.getType().equals(c.getType())){System.out.println("Player " + players[i].getNumber() + " has the " + c.getType()); return;}
 				if (cha.getType().equals(c.getType())){System.out.println("Player " + players[i].getNumber() + " has the " + c.getType()); return;}
 				if (loc.name().equals(c.getType())){System.out.println("Player " + players[i].getNumber() + " has the " + c.getType()); return;}
 			}
+			i++;
 		}
 		
+		System.out.println();
 		System.out.println("None of the other players can refute you");
+		System.out.println();
 	}
 	
 	//TODO: Maybe tidy this up

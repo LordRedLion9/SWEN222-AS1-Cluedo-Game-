@@ -17,76 +17,88 @@ public class InputManager {
 	
 	private Scanner scan = new Scanner (System.in);
 	private ClueGame game;
-	private boolean alreadyMoved;
+	private boolean alreadyMoved = false;;
 	
 	public InputManager(ClueGame game){
 		this.game = game;
 	}
 	
-	public void processInput(){
-
-		if(game.activePlayer.inRoom()){ //Player in room
+	public void processInput(boolean cantMoveNow){
+		boolean loop = true;
+		while (loop){
 			
-			System.out.println("You are in the " + game.activePlayer.getCurrentRoom().name() + ", choose your next move");
-			int choice = 0;
-			if(alreadyMoved){
-				choice = getActionFromList(new String[] {
-						"Suggest",
-						"Accuse",
-						"End turn"});
-				choice ++;
-				alreadyMoved = false;
+			if(game.activePlayer.inRoom()){ //Player in room
+				
+				System.out.println("You are in the " + game.activePlayer.getCurrentRoom().name() + ", choose your next move");
+				int choice = 0;
+				if(cantMoveNow){
+					choice = getActionFromList(new String[] {
+							"Show Hand",
+							"Suggest",
+							"Accuse",
+							"End turn"});
+					choice ++;
+					
+				}
+				else{
+					choice = getActionFromList(new String[] {
+							"Move",
+							"Show Hand",
+							"Suggest",
+							"Accuse",
+							"End turn"});
+				}
+				
+				switch (choice){
+				case 0: //Move
+					moveCommand();
+					return;
+				case 1: //Print hand
+					printHand();
+					break;
+				case 2: //Suggest
+					makeSuggestion();
+					return;
+				case 3: //Accuse
+					return;
+				case 4: //End Turn
+					return;
+				}	
 			}
-			else{
-				choice = getActionFromList(new String[] {
+			else{ //Player not in room
+				
+				System.out.println("Choose your next move");
+				int choice = getActionFromList(new String[] {
 						"Move",
-						"Suggest",
-						"Accuse",
+						"View Cards",
 						"End turn"});
+				
+				switch (choice){
+				case 0: //Move
+					moveCommand();
+					return;
+				case 1: //Print hand
+					printHand();
+					break;
+				case 2: //End turn
+					return;
+				}	
 			}
-			
-			switch (choice){
-			case 0: //Move
-				moveCommand();
-				break;
-			case 1: //Suggest
-				makeSuggestion();
-			case 2: //Accuse
-				return;
-			case 3: //End Turn
-				return;
-			}	
-		}
-		else{ //Player not in room
-			
-			System.out.println("Choose your next move");
-			int choice = getActionFromList(new String[] {
-					"Move",
-					"View Cards",
-					"End turn"});
-			
-			switch (choice){
-			case 0: //Move
-				moveCommand();
-				break;
-			case 1: //Print hand
-				printHand();
-				break;
-			case 2: //End turn
-				return;
-			}	
-		}			
+		}	
 	}
 	
 	private void printHand(){
+		System.out.println();
+		System.out.println("You have the following clues: ");
 		game.activePlayer.printHand();
+		System.out.println();
 	}
 	
 	private void makeSuggestion(){
 		
 		LocName loc = game.activePlayer.getCurrentRoom();
 		Weapon wep = new Weapon(WeaponType.CANDLESTICK); //Default for init
-		Character cha = new Character(CharName.Colonel_Mustard); //Default for init
+		Character cha = new Character(CharName.Mrs_Peacock); //Default for init
 		
 		System.out.println("Which weapon do you suggest?");
 		int choice = getActionFromList(new String[] {
@@ -97,23 +109,23 @@ public class InputManager {
 				"Rope",
 				"Spanner"});
 		switch (choice){
-		case 1:
+		case 0:
 			wep = new Weapon(WeaponType.CANDLESTICK);
 			break;
 		
-		case 2:
+		case 1:
 			wep = new Weapon(WeaponType.DAGGER);
 			break;
-		case 3:
+		case 2:
 			wep = new Weapon(WeaponType.LEADPIPE);
 			break;
-		case 4:
+		case 3:
 			wep = new Weapon(WeaponType.REVOLVER);
 			break;
-		case 5:
+		case 4:
 			wep = new Weapon(WeaponType.ROPE);
 			break;
-		case 6:
+		case 5:
 			wep = new Weapon(WeaponType.SPANNER);
 			break;
 		}
@@ -128,22 +140,22 @@ public class InputManager {
 				"The Reverend Green"});
 		
 		switch (choice){
-		case 1:
+		case 0:
 			cha = new Character(CharName.Colonel_Mustard);
 			break;
-		case 2:
+		case 1:
 			cha = new Character(CharName.Miss_Scarlet);
 			break;
-		case 3:
+		case 2:
 			cha = new Character(CharName.Mrs_Peacock);
 			break;
-		case 4:
+		case 3:
 			cha = new Character(CharName.Professor_Plum);
 			break;
-		case 5:
+		case 4:
 			cha = new Character(CharName.Mrs_White);
 			break;
-		case 6:
+		case 5:
 			cha = new Character(CharName.The_Reverend_Green);
 			break;
 		}
@@ -192,8 +204,8 @@ public class InputManager {
 				System.out.println("You moved. Moves remaining : " + (canMove-1));
 				if(game.activePlayer.inRoom()){
 					System.out.println("you have entered the " + game.activePlayer.getCurrentRoom() + "!");
-					alreadyMoved = true;
-					processInput();
+					processInput(true);
+					return;
 				}
 				canMove--;
 			} else {
