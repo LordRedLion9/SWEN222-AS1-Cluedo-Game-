@@ -1,5 +1,6 @@
 package ClueGame.Main;
 
+import ClueGame.Tests.Tests;
 import java.util.*;
 import ClueGame.Data.Board;
 import ClueGame.Data.Coordinate;
@@ -154,6 +155,8 @@ public class InputManager {
 	private void moveCommand(){
 		
 		int canMove = game.rollDice();
+		if(ClueGame.useTestingLogic)
+			canMove = 100;
 		System.out.println("You rolled: " + canMove);
 		
 		while(true){
@@ -234,10 +237,15 @@ public class InputManager {
 		}
 		while(true){
 			System.out.println("please enter the number of your choice : ");
+			
+			if(ClueGame.useTestingLogic){
+				return Tests.queue.poll()-1;
+			}
 			String input = scan.next();
 			try{
 				int res = Integer.parseInt(input);
-				return res-1;
+				if(res <= list.length)
+					return res-1;
 			}
 			catch (NumberFormatException e){
 				continue;

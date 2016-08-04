@@ -23,6 +23,8 @@ public class ClueGame {
 	private Player[] players;
 	int numPly;
 	public Player activePlayer;
+	
+	public static boolean useTestingLogic;
 		
 	public ClueGame(){
 		fillClueSets();
