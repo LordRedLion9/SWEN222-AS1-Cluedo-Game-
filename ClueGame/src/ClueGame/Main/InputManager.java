@@ -17,13 +17,12 @@ public class InputManager {
 	
 	private Scanner scan = new Scanner (System.in);
 	private ClueGame game;
-	private boolean alreadyMoved = false;;
 	
 	public InputManager(ClueGame game){
 		this.game = game;
 	}
 	
-	public void processInput(boolean cantMoveNow){
+	public void processInput(boolean cannotMove){
 		boolean loop = true;
 		while (loop){
 			
@@ -31,7 +30,7 @@ public class InputManager {
 				
 				System.out.println("You are in the " + game.activePlayer.getCurrentRoom().name() + ", choose your next move");
 				int choice = 0;
-				if(cantMoveNow){
+				if(cannotMove){
 					choice = getActionFromList(new String[] {
 							"Show Hand",
 							"Suggest",
@@ -60,6 +59,7 @@ public class InputManager {
 					makeSuggestion();
 					return;
 				case 3: //Accuse
+					makeAccusal();
 					return;
 				case 4: //End Turn
 					return;
@@ -162,6 +162,118 @@ public class InputManager {
 		
 		game.makeSuggest(loc, wep, cha);
 		
+	}
+	
+	private void makeAccusal(){
+		Location loc = new Location(LocName.BALL_ROOM);
+		Weapon wep = new Weapon(WeaponType.CANDLESTICK); //Default for init
+		Character cha = new Character(CharName.Mrs_Peacock); //Default for init
+
+		
+		System.out.println("Which character do you Accuse?");
+		int choice = getActionFromList(new String[] {
+				"Colonel Mustard",
+				"Miss Scarlet",
+				"Mrs Peacock",
+				"Professor Plum",
+				"Mrs White",
+				"The Reverend Green"});
+		
+		switch (choice){
+		case 0:
+			cha = new Character(CharName.Colonel_Mustard);
+			break;
+		case 1:
+			cha = new Character(CharName.Miss_Scarlet);
+			break;
+		case 2:
+			cha = new Character(CharName.Mrs_Peacock);
+			break;
+		case 3:
+			cha = new Character(CharName.Professor_Plum);
+			break;
+		case 4:
+			cha = new Character(CharName.Mrs_White);
+			break;
+		case 5:
+			cha = new Character(CharName.The_Reverend_Green);
+			break;
+		}
+		
+		System.out.println("Which room do you Accuse?");
+		choice = getActionFromList(new String[] {
+				"Ball Room",
+				"Billiard Room",
+				"Conservatory",
+				"Dining Room",
+				"Hall",
+				"Kitchen",
+				"Library",
+				"Lounge",
+				"Study"});
+		switch (choice){
+		case 0:
+			loc  = new Location(LocName.BALL_ROOM);
+			break;
+		case 1:
+			loc  = new Location(LocName.BILLIARD_ROOM);
+			break;
+		case 2:
+			loc  = new Location(LocName.CONSERVATORY);
+			break;
+		case 3:
+			loc  = new Location(LocName.DINING_ROOM);
+			break;
+		case 4:
+			loc  = new Location(LocName.HALL);
+			break;
+		case 5:
+			loc  = new Location(LocName.KITCHEN);
+			break;
+		case 6:
+			loc  = new Location(LocName.LIBRARY);
+			break;
+		case 7:
+			loc  = new Location(LocName.LOUNGE);
+			break;
+		case 8:
+			loc  = new Location(LocName.STUDY);
+			break;
+		
+		
+		}
+		
+		System.out.println("Which weapon do you Accuse?");
+		choice = getActionFromList(new String[] {
+				"Candlestick",
+				"Dagger",
+				"Lead pipe",
+				"Revolver",
+				"Rope",
+				"Spanner"});
+		switch (choice){
+		case 0:
+			wep = new Weapon(WeaponType.CANDLESTICK);
+			break;
+		
+		case 1:
+			wep = new Weapon(WeaponType.DAGGER);
+			break;
+		case 2:
+			wep = new Weapon(WeaponType.LEADPIPE);
+			break;
+		case 3:
+			wep = new Weapon(WeaponType.REVOLVER);
+			break;
+		case 4:
+			wep = new Weapon(WeaponType.ROPE);
+			break;
+		case 5:
+			wep = new Weapon(WeaponType.SPANNER);
+			break;
+		}
+		
+		game.makeAccusal(cha, loc, wep);
 	}
 	
 	private void moveCommand(){

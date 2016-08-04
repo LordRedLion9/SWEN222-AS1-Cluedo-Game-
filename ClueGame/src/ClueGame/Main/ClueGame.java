@@ -24,6 +24,7 @@ public class ClueGame {
 	int numPly;
 	public Player activePlayer;
 	
+	public boolean playing = true;
 	public static boolean useTestingLogic;
 		
 	public ClueGame(){
@@ -38,13 +39,14 @@ public class ClueGame {
 			players[i].setCharacter(characters.get(i));
 			board.spawnPlayer(players[i]);
 		}
-		shuffleAndFill();
+		
 		activePlayer = players[0];
 						
 		solution = generateSolution();
+		shuffleAndFill();
 		
 		// Main game loop
-		while (true){
+		while (playing){
 			System.out.println("--------------");
 			System.out.println(board.renderBoard());
 			System.out.println("--------------");
@@ -73,7 +75,7 @@ public class ClueGame {
 		while(true){
 			if (nextPlayer == numPly)
 				nextPlayer = 0;
-			if(players[nextPlayer].active()){
+			if(players[nextPlayer].getActive()){
 				activePlayer = players[nextPlayer]; 
 				break;
 			}
@@ -124,7 +126,8 @@ public class ClueGame {
 		rand = new Random().nextInt(weapons.size());
 		toAddWep = weapons.remove(rand);
 		
-		return new Solution(toAddChar, toAddWep, toAddLoc);
+		System.out.println("The solution is: " + toAddChar.getType() + " " + toAddLoc.getType() + " " + toAddWep.getType());
+		return new Solution(toAddChar, toAddLoc , toAddWep);
 	}
 	
 	public void shuffleAndFill(){
@@ -172,7 +175,7 @@ public class ClueGame {
 	}
 	
 	//TODO: Maybe tidy this up
-	public boolean tryVictory(Character tryChar, Weapon tryWep, Location tryLoc){
+	public boolean tryVictory(Character tryChar, Location tryLoc, Weapon tryWep){
 		
 		return ((solution.getChar().getType()).equals(tryChar.getType()) 
 				&& (solution.getWep().getType()).equals(tryWep.getType())
@@ -183,5 +186,23 @@ public class ClueGame {
 	
 	public int rollDice(){
 		return new Random().nextInt(6) + 1;
+	}
+
+	public boolean makeAccusal(Character cha, Location loc, Weapon wep) {
+		
+		System.out.println();
+		System.out.println("You are accusing: ");
+		System.out.println(cha.getType() + " of commiting the crime in the "  + loc.getType()+ " with the " + wep.getType());
+		System.out.println();
+		
+		if (tryVictory(cha, loc, wep)){
+			System.out.println("Player " + activePlayer.getNumber() + " is the WINNER!"); 
+			playing = false;
+			return true;
+		} else {
+			System.out.println("Sorry player " + activePlayer.getNumber() + ", but that wrong. You are OUT!");
+			activePlayer.setActive(false);
+			return false;
+		}
 	}
 }

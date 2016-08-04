@@ -18,11 +18,12 @@ public class Player {
 		hand.add(clue);
 	}
 	
-	public boolean active(){
+	public boolean getActive(){
 		return active;
 	}
 	
-	public void enable(boolean val){
+	
+	public void setActive(boolean val){
 		active = val;
 	}
 	

@@ -177,15 +177,23 @@ public class Board {
 		String textBoard = "";
 		
 		for(int row = 0; row < tiles.length; row++){
+			textBoard += " ";
 			for(int col = 0; col < tiles[row].length; col++){
 				
 				Coordinate cord = new Coordinate(row, col);
 				
 				Player containedPlayer = playerAtCord(cord);
-				if(containedPlayer != null)
-					textBoard += playerASCIIValues[containedPlayer.getNumber()-1]  + " ";
-				else
-					textBoard += tiles[row][col] + " ";
+				if(containedPlayer != null){
+					
+					if (containedPlayer.getNumber() == main.activePlayer.getNumber()){
+						textBoard = textBoard.substring(0, textBoard.length() - 1); 
+						textBoard += "[" +  playerASCIIValues[containedPlayer.getNumber()-1]  + "]";
+					} else {
+						textBoard = textBoard.substring(0, textBoard.length() - 1); 
+						textBoard += "(" +  playerASCIIValues[containedPlayer.getNumber()-1]  + ")";
+					}
+				} else {
+					textBoard += tiles[row][col] + " "; }
 				
 			}
 			textBoard += "\n";
