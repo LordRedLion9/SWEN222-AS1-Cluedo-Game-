@@ -1,6 +1,8 @@
 package ClueGame.Main;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+
 import ClueGame.Data.*;
 import ClueGame.Data.Character;
 import ClueGame.Data.Character.CharName;
@@ -21,7 +23,7 @@ public class ClueGame {
 	public InputManager input = new InputManager(this);
 	
 	private Player[] players;
-	int numPly;
+	int numPly; //Number of players
 	public Player activePlayer;
 	
 	public boolean playing = true;
@@ -42,8 +44,8 @@ public class ClueGame {
 		
 		activePlayer = players[0];
 						
-		solution = generateSolution();
-		shuffleAndFill();
+		solution = generateSolution(); //Make enveloped solution
+		shuffleAndFill(); //Deal cards to players
 		
 		// Main game loop
 		while (playing){
@@ -187,21 +189,24 @@ public class ClueGame {
 		System.out.println(cha.getType() + " in the "  + loc.name()+ " with the " + wep.getType());
 		System.out.println();
 		
-		int i = activePlayer.getNumber(); //Technically player AFTER active player in terms of array
-		
-		for (int k = 0 /*player AFTER active player*/; k < numPly - 1; k++){
-			if (i == numPly){i = 0;}
-			for (Clue c : players[i].getHand()){			
-				if (wep.getType().equals(c.getType())){System.out.println("Player " + players[i].getNumber() + " has the " + c.getType()); return;}
-				if (cha.getType().equals(c.getType())){System.out.println("Player " + players[i].getNumber() + " has the " + c.getType()); return;}
-				if (loc.name().equals(c.getType())){System.out.println("Player " + players[i].getNumber() + " has the " + c.getType()); return;}
+		int i = activePlayer.getNumber(); //Technically this is the player AFTER active player in terms of array numbering
+		try {
+			TimeUnit.SECONDS.sleep(1);
+			for (int k = 0; k < numPly - 1; k++){
+				if (i == numPly){i = 0;}
+				for (Clue c : players[i].getHand()){			
+					if (wep.getType().equals(c.getType())){System.out.println("Player " + players[i].getNumber() + " has the " + c.getType()); TimeUnit.SECONDS.sleep(2); return;}
+					if (cha.getType().equals(c.getType())){System.out.println("Player " + players[i].getNumber() + " has the " + c.getType()); TimeUnit.SECONDS.sleep(2); return;}
+					if (loc.name().equals(c.getType())){System.out.println("Player " + players[i].getNumber() + " has the " + c.getType());  TimeUnit.SECONDS.sleep(2); return;}
+				}
+				i++;
 			}
-			i++;
-		}
-		
-		System.out.println();
-		System.out.println("None of the other players can refute you");
-		System.out.println();
+			
+			System.out.println();
+			System.out.println("None of the other players can refute your suggestion");
+			System.out.println();
+			TimeUnit.SECONDS.sleep(2);
+		}catch (Exception e){System.out.println("Whoops! Somthing went wrong there");}
 	}
 	
 	/**
@@ -241,22 +246,33 @@ public class ClueGame {
 	 * @param loc The accused Location
 	 * @param wep The accused Weapon
 	 * @return boolean if whether accusal was correct
+	 * @throws InterruptedException 
 	 */
-	public boolean makeAccusal(Character cha, Location loc, Weapon wep) {
+	public boolean makeAccusal(Character cha, Location loc, Weapon wep){
 		
 		System.out.println();
 		System.out.println("You are accusing: ");
 		System.out.println(cha.getType() + " of commiting the crime in the "  + loc.getType()+ " with the " + wep.getType());
-		System.out.println();
 		
-		if (tryVictory(cha, loc, wep)){
-			System.out.println("Player " + activePlayer.getNumber() + " is the WINNER!"); 
-			playing = false;
-			return true;
-		} else {
-			System.out.println("Sorry player " + activePlayer.getNumber() + ", but that wrong. You are OUT!");
-			activePlayer.setActive(false);
-			return false;
-		}
+		try{
+			TimeUnit.SECONDS.sleep(1);
+			System.out.println("...");
+			TimeUnit.SECONDS.sleep(1);
+			System.out.println("...");
+			TimeUnit.SECONDS.sleep(1);
+		
+		
+			if (tryVictory(cha, loc, wep)){
+				System.out.println("Player " + activePlayer.getNumber() + " is the WINNER!"); 
+				playing = false;
+				return true;
+			} else {
+				System.out.println("Sorry player " + activePlayer.getNumber() + ", but that wrong. You are OUT!");
+				TimeUnit.SECONDS.sleep(3);
+				activePlayer.setActive(false);
+				return false;
+			}
+		
+		}catch (Exception e){System.out.println("Whoops! Somthing went wrong there"); return false;}
 	}
 }

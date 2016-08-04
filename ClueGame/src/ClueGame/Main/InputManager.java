@@ -32,7 +32,7 @@ public class InputManager {
 		boolean loop = true;
 		while (loop){
 			
-			if(game.activePlayer.inRoom()){ //Player in room
+			if(game.activePlayer.inRoom()){ //Choices if players are in a room
 				
 				System.out.println("You are in the " + game.activePlayer.getCurrentRoom().name() + ", choose your next move");
 				int choice = 0;
@@ -71,7 +71,7 @@ public class InputManager {
 					return;
 				}	
 			}
-			else{ //Player not in room
+			else{ //Choices if players are NOT in a room
 				
 				System.out.println("Choose your next move");
 				int choice = getActionFromList(new String[] {
@@ -116,8 +116,8 @@ public class InputManager {
 	private void makeSuggestion(){
 		
 		LocName loc = game.activePlayer.getCurrentRoom();
-		Weapon wep = new Weapon(WeaponType.CANDLESTICK); //Default for init
-		Character cha = new Character(CharName.Mrs_Peacock); //Default for init
+		Weapon wep = new Weapon(WeaponType.CANDLESTICK); //Defaults for initialization
+		Character cha = new Character(CharName.Mrs_Peacock); 
 		
 		System.out.println("Which weapon do you suggest?");
 		int choice = getActionFromList(new String[] {
@@ -191,9 +191,9 @@ public class InputManager {
 	 * 
 	 */
 	private void makeAccusal(){
-		Location loc = new Location(LocName.BALL_ROOM);
-		Weapon wep = new Weapon(WeaponType.CANDLESTICK); //Default for init
-		Character cha = new Character(CharName.Mrs_Peacock); //Default for init
+		Location loc = new Location(LocName.BALL_ROOM); //Defaults for initialization
+		Weapon wep = new Weapon(WeaponType.CANDLESTICK); 
+		Character cha = new Character(CharName.Mrs_Peacock); 
 
 		
 		System.out.println("Which character do you Accuse?");

@@ -113,13 +113,6 @@ public class Board {
 		Coordinate newCord = getCordInDirection(player.getPosition(), dir);	
 		TileType tile = getTileAtCord(newCord);
 		
-		/*
-		 * great for debugging movement!
-		 * System.out.println("old " + player.getPosition().toString());
-		 * System.out.println("new " + newCord.toString());
-		 * System.out.println("dir " + dir.toString());
-		 */
-		
 		if(!isValidCord(newCord)){
 			// we are leaving the board!
 			return false;
