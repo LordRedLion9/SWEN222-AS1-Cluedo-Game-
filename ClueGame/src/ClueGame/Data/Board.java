@@ -4,6 +4,8 @@ import ClueGame.Main.*;
 
 import java.util.*;
 import java.lang.*;
+
+import ClueGame.Data.Character.CharName;
 import ClueGame.Data.Location.LocName;
 
 public class Board {
@@ -77,32 +79,41 @@ public class Board {
 		this.main = main;
 	}
 	
+	// correct order of player spawning 
+	private int[] playerOrder = new int[] {2, 3, 5, 0, 4, 1};
 	
 	// place a player on the board in an available start tile
 	public void spawnPlayer(Player player){
 		
 		List<Coordinate> startOptions = getTilesOfType(TileType.START);
-		boolean hasSpawned = false;
 		
-		for(Coordinate cord : startOptions){
+		// use a different spawn system for test cases
+		if(main.useTestingLogic){
 			
-			boolean placeTaken = false;
-			
-			for(Player checkPlayer : main.getPlayers()){
-				if(checkPlayer != null && checkPlayer.getPosition().equals(cord)){
-					placeTaken = true;
-				}		
+			boolean hasSpawned = false;
+	
+			for(Coordinate cord : startOptions){	
+				boolean placeTaken = false;
+				
+				for(Player checkPlayer : main.getPlayers()){
+					if(checkPlayer != null && checkPlayer.getPosition().equals(cord)){
+						placeTaken = true;
+					}		
+				}
+				
+				if(!placeTaken){
+					player.setPosition(cord);
+					hasSpawned = true;
+				}
 			}
-			
-			if(!placeTaken){
-				player.setPosition(cord);
-				hasSpawned = true;
+		
+			if(!hasSpawned){
+				// should never happen, assuming that a valid number of players were chosen
+				throw new RuntimeException("failed to spawn player");
 			}
 		}
-		
-		if(!hasSpawned){
-			// should never happen, assuming that a valid number of players were chosen
-			throw new RuntimeException("failed to spawn player");
+		else{
+			player.setPosition(startOptions.get(playerOrder[player.getNumber()-1]));
 		}
 	}
 	
