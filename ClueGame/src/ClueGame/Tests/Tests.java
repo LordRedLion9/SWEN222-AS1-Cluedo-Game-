@@ -7,6 +7,7 @@ import java.util.Queue;
 import org.junit.Test;
 
 import ClueGame.Data.Coordinate;
+import ClueGame.Data.Board;
 import ClueGame.Data.Character;
 import ClueGame.Data.Weapon;
 import ClueGame.Data.Location;
@@ -83,7 +84,7 @@ public class Tests  {
 		
 		ClueGame game = new ClueGame(false);
 		
-		assertFalse(game.board.movePlayer(game.players[0], game.board.DOWN));
+		assertFalse(game.board.movePlayer(game.players[0], Board.DOWN));
 		
 	}
 	
@@ -97,7 +98,31 @@ public class Tests  {
 		
 		ClueGame game = new ClueGame(false);
 		
-		assertFalse(game.board.movePlayer(game.players[0], game.board.LEFT));
+		assertFalse(game.board.movePlayer(game.players[0], Board.LEFT));
+		
+	}
+	
+public @Test void invalidMove3() { //Tests if the game disallows players occupying the same space
+		
+		setupTest(new int[] {
+				2, // 2 players
+				4 //End game
+		});
+		ClueGame.useTestingLogic = true;
+		
+		ClueGame game = new ClueGame(false);
+		game.board.movePlayerToRoom(game.players[1], Location.LocName.LOUNGE);
+		
+		assertTrue("The player is in the " + game.players[1].getCurrentRoom().name() ,game.players[1].getCurrentRoom().name().equals("LOUNGE"));
+		game.board.movePlayer(game.players[1], Board.RIGHT);
+		game.board.movePlayer(game.players[1], Board.RIGHT);
+		game.board.movePlayer(game.players[0], Board.UP);
+		game.board.movePlayer(game.players[0], Board.UP);
+		game.board.movePlayer(game.players[0], Board.UP);
+		game.board.movePlayer(game.players[0], Board.UP);
+		game.board.movePlayer(game.players[0], Board.UP);
+		assertFalse(game.board.renderBoard(), game.board.movePlayer(game.players[0], Board.UP));
+		
 		
 	}
 	
@@ -184,6 +209,7 @@ public class Tests  {
 		assertTrue(game.makeAccusal(new Character(Character.CharName.Miss_Scarlet), new Location(Location.LocName.DINING_ROOM), new Weapon(Weapon.WeaponType.DAGGER)));
 		
 	}
+	
 	
 	public @Test void hands1() {
 		setupTest(new int[] {

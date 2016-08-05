@@ -78,6 +78,10 @@ public class ClueGame {
 		playing = false;
 	}
 	
+	public boolean isEnded(){
+		return playing;
+	}
+	
 	/**
 	 * 
 	 * End the current players turn and
@@ -291,6 +295,6 @@ public class ClueGame {
 				return false;
 			}
 		
-		}catch (Exception e){System.out.println("Whoops! Somthing went wrong there"); return false;}
+		}catch (InterruptedException e){System.out.println("Whoops! Somthing went wrong there " + e); return false;}
 	}
 }
