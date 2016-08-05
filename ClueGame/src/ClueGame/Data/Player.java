@@ -27,6 +27,11 @@ public class Player {
 		active = val;
 	}
 	
+	/**
+	 * 
+	 * print the players hand
+	 *  
+	 */
 	public void printHand(){
 		for (Clue c : hand){
 			if (c instanceof Location){
@@ -49,6 +54,13 @@ public class Player {
 		return hand;
 	}
 	
+	/**
+	 * 
+	 * check if player has a card in thier hand
+	 *  
+	 * @param p clue to look for
+	 * @return result
+	 */
 	public boolean contains(Clue p){
 		for (Clue c : hand){
 			if (c.getType().equals(p.getType())){return true;}
@@ -81,6 +93,12 @@ public class Player {
 		position = cord;
 	}
 	
+	/**
+	 * 
+	 * is the player in a room?
+	 *  
+	 * @return result
+	 */
 	public boolean inRoom() {
 		return (currentRoom != null);
 	}

@@ -19,7 +19,7 @@ public class Board {
 	 */
 	
 	// keep track of the main class
-	private ClueGame main;
+	private ClueGame main; 
 	
 	private final int[][] tiles =  new int[][] {
 		{4,4,4,4,4,4,4,4,4,3,1,4,4,4,3,4,4,4,4,4,4,4,4,4},
