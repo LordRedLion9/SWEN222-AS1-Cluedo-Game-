@@ -79,7 +79,7 @@ public class ClueGame {
 	}
 	
 	public boolean isEnded(){
-		return playing;
+		return !playing;
 	}
 	
 	/**
@@ -290,7 +290,7 @@ public class ClueGame {
 				return true;
 			} else {
 				System.out.println("Sorry player " + activePlayer.getNumber() + ", but that wrong. You are OUT!");
-				TimeUnit.SECONDS.sleep(3);
+				if (!useTestingLogic){TimeUnit.SECONDS.sleep(3);}
 				activePlayer.setActive(false);
 				return false;
 			}
