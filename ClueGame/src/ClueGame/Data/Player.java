@@ -49,6 +49,13 @@ public class Player {
 		return hand;
 	}
 	
+	public boolean contains(Clue p){
+		for (Clue c : hand){
+			if (c.getType().equals(p.getType())){return true;}
+		}
+		return false;
+	}
+	
 	public Player(int playerNo){
 		this.playerNo = playerNo;
 		position = new Coordinate(0,0);

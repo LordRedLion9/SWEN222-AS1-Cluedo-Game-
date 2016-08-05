@@ -22,14 +22,14 @@ public class ClueGame {
 	public Board board = new Board(this);
 	public InputManager input = new InputManager(this);
 	
-	private Player[] players;
+	public Player[] players;
 	int numPly; //Number of players
 	public Player activePlayer;
 	
 	public boolean playing = true;
 	public static boolean useTestingLogic;
 		
-	public ClueGame(){
+	public ClueGame(boolean generate){
 		fillClueSets();
 		
 		
@@ -43,9 +43,13 @@ public class ClueGame {
 		}
 		
 		activePlayer = players[0];
-						
-		solution = generateSolution(); //Make enveloped solution
-		shuffleAndFill(); //Deal cards to players
+		
+		
+		if (generate){
+			solution = generateSolution(); //Make enveloped solution
+			shuffleAndFill(); //Deal cards to players
+		}
+		
 		
 		// Main game loop
 		while (playing){
@@ -55,13 +59,14 @@ public class ClueGame {
 			System.out.println("It is Player: " + activePlayer.getNumber() + "'s [" + board.getPlayerIcon(activePlayer) + "] turn.");	
 			System.out.println("You are playing as " + activePlayer.getCharacter().getType());	
 			System.out.println("--------------");
-			input.processInput(false);			
+			input.processInput(false);	
 			endTurn();
+			
 		}
 	}
 	
 	public static void main(String[] args) {
-		new ClueGame();
+		new ClueGame(true);
 	}
 	
 	
@@ -69,6 +74,9 @@ public class ClueGame {
 		return players;
 	}
 	
+	public void endGame(){
+		playing = false;
+	}
 	
 	/**
 	 * 
@@ -148,6 +156,13 @@ public class ClueGame {
 		return new Solution(toAddChar, toAddLoc , toAddWep);
 	}
 	
+	public Solution generateSolution(Character toAddChar, Location toAddLoc, Weapon toAddWep){
+		weapons.remove(0);
+		locations.remove(0);
+		characters.remove(1);
+		return new Solution(toAddChar, toAddLoc , toAddWep);
+	}
+	
 	/**
 	 * Shuffles all the clue arrays into one, shuffles it, and
 	 * deals them out evenly to the players.
@@ -192,13 +207,13 @@ public class ClueGame {
 		
 		int i = activePlayer.getNumber(); //Technically this is the player AFTER active player in terms of array numbering
 		try {
-			TimeUnit.SECONDS.sleep(1);
+			if (!useTestingLogic){TimeUnit.SECONDS.sleep(1);}
 			for (int k = 0; k < numPly - 1; k++){
 				if (i == numPly){i = 0;}
 				for (Clue c : players[i].getHand()){			
-					if (wep.getType().equals(c.getType())){System.out.println("Player " + players[i].getNumber() + " has the " + c.getType()); TimeUnit.SECONDS.sleep(2); return;}
-					if (cha.getType().equals(c.getType())){System.out.println("Player " + players[i].getNumber() + " has the " + c.getType()); TimeUnit.SECONDS.sleep(2); return;}
-					if (loc.name().equals(c.getType())){System.out.println("Player " + players[i].getNumber() + " has the " + c.getType());  TimeUnit.SECONDS.sleep(2); return;}
+					if (wep.getType().equals(c.getType())){System.out.println("Player " + players[i].getNumber() + " has the " + c.getType()); if (!useTestingLogic){ TimeUnit.SECONDS.sleep(2);} return;}
+					if (cha.getType().equals(c.getType())){System.out.println("Player " + players[i].getNumber() + " has the " + c.getType()); if (!useTestingLogic) {TimeUnit.SECONDS.sleep(2);} return;}
+					if (loc.name().equals(c.getType())){System.out.println("Player " + players[i].getNumber() + " has the " + c.getType());  if (!useTestingLogic) {TimeUnit.SECONDS.sleep(2);} return;}
 				}
 				i++;
 			}
@@ -206,7 +221,7 @@ public class ClueGame {
 			System.out.println();
 			System.out.println("None of the other players can refute your suggestion");
 			System.out.println();
-			TimeUnit.SECONDS.sleep(2);
+			if (!useTestingLogic){ TimeUnit.SECONDS.sleep(2);}
 		}catch (Exception e){System.out.println("Whoops! Somthing went wrong there");}
 	}
 	
@@ -256,11 +271,13 @@ public class ClueGame {
 		System.out.println(cha.getType() + " of commiting the crime in the "  + loc.getType()+ " with the " + wep.getType());
 		
 		try{
-			TimeUnit.SECONDS.sleep(1);
-			System.out.println("...");
-			TimeUnit.SECONDS.sleep(1);
-			System.out.println("...");
-			TimeUnit.SECONDS.sleep(1);
+			if (!useTestingLogic){ //Waiting during testing is annoying
+				TimeUnit.SECONDS.sleep(1);
+				System.out.println("...");
+				TimeUnit.SECONDS.sleep(1);
+				System.out.println("...");
+				TimeUnit.SECONDS.sleep(1);
+			}
 		
 		
 			if (tryVictory(cha, loc, wep)){

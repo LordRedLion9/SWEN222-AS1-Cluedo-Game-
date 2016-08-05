@@ -41,7 +41,8 @@ public class InputManager {
 							"Show Hand",
 							"Suggest",
 							"Accuse",
-							"End turn"});
+							"End turn",
+							"Quit game"});
 					choice ++;
 					
 				}
@@ -51,7 +52,8 @@ public class InputManager {
 							"Show Hand",
 							"Suggest",
 							"Accuse",
-							"End turn"});
+							"End turn",
+							"Quit game"});
 				}
 				
 				switch (choice){
@@ -69,6 +71,9 @@ public class InputManager {
 					return;
 				case 4: //End Turn
 					return;
+				case 5: //End Turn
+					game.endGame();
+					return;
 				}	
 			}
 			else{ //Choices if players are NOT in a room
@@ -77,7 +82,8 @@ public class InputManager {
 				int choice = getActionFromList(new String[] {
 						"Move",
 						"View Cards",
-						"End turn"});
+						"End turn",
+						"Quit game"});
 				
 				switch (choice){
 				case 0: //Move
@@ -87,6 +93,9 @@ public class InputManager {
 					printHand();
 					break;
 				case 2: //End turn
+					return;
+				case 3: //End turn
+					game.endGame();
 					return;
 				}	
 			}
@@ -419,7 +428,8 @@ public class InputManager {
 			System.out.println("please enter the number of your choice : ");
 			
 			if(ClueGame.useTestingLogic){
-				return Tests.queue.poll()-1;
+				
+				if (Tests.queue.peek() != null){return Tests.queue.poll() - 1;}
 			}
 			String input = scan.next();
 			try{
