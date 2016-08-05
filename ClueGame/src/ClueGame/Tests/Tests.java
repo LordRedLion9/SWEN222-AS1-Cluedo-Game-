@@ -54,7 +54,7 @@ public class Tests  {
 		
 	}
 	
-	public @Test void roomMove2() {
+	public @Test void roomMove1() {
 		
 		setupTest(new int[] {
 				1, // 1 player
@@ -71,6 +71,20 @@ public class Tests  {
 		ClueGame game = new ClueGame(false);
 		
 		assertTrue("The coordinate of the player is " + game.players[0].getPosition().toString() + game.board.renderBoard(), game.players[0].getPosition().equals(new Coordinate(12, 8)));
+		
+	}
+	
+	public @Test void roomMove2() {
+		
+		setupTest(new int[] {
+				1, // 1 player
+				4 //End game
+		});
+		ClueGame.useTestingLogic = true;
+		
+		ClueGame game = new ClueGame(false);
+		game.board.movePlayerToRoom(game.activePlayer, Location.LocName.KITCHEN);
+		assertTrue("The coordinate of the player is " + game.players[0].getPosition().toString() + game.board.renderBoard(), game.players[0].getPosition().equals(new Coordinate(6, 4)));
 		
 	}
 	
@@ -102,7 +116,7 @@ public class Tests  {
 		
 	}
 	
-public @Test void invalidMove3() { //Tests if the game disallows players occupying the same space
+	public @Test void invalidMove3() { //Tests if the game disallows players occupying the same space
 		
 		setupTest(new int[] {
 				2, // 2 players
@@ -123,6 +137,20 @@ public @Test void invalidMove3() { //Tests if the game disallows players occupyi
 		game.board.movePlayer(game.players[0], Board.UP);
 		assertFalse(game.board.renderBoard(), game.board.movePlayer(game.players[0], Board.UP));
 		
+		
+	}
+	
+	public @Test void invalidMove4() {
+		
+		setupTest(new int[] {
+				1, // 2 players
+				4 //End game
+		});
+		ClueGame.useTestingLogic = true;
+		
+		ClueGame game = new ClueGame(false);
+		game.board.movePlayer(game.players[0], Board.RIGHT);
+		assertFalse(game.board.movePlayer(game.players[0], Board.RIGHT));
 		
 	}
 	
@@ -208,6 +236,40 @@ public @Test void invalidMove3() { //Tests if the game disallows players occupyi
 		
 		assertTrue(game.makeAccusal(new Character(Character.CharName.Miss_Scarlet), new Location(Location.LocName.DINING_ROOM), new Weapon(Weapon.WeaponType.DAGGER)));
 		
+	}
+	
+	public @Test void gameEnd() {
+		setupTest(new int[] {
+				1, // 1 player
+
+				4 //End game
+		});
+		
+		ClueGame.useTestingLogic = true;
+		
+		ClueGame game = new ClueGame(false);
+		game.solution = game.generateSolution(new Character(Character.CharName.Miss_Scarlet), new Location(Location.LocName.DINING_ROOM), new Weapon(Weapon.WeaponType.DAGGER));
+		
+		
+		assertTrue(game.makeAccusal(new Character(Character.CharName.Miss_Scarlet), new Location(Location.LocName.DINING_ROOM), new Weapon(Weapon.WeaponType.DAGGER)));
+		assertTrue(game.isEnded());
+	}
+	
+	public @Test void playerOut() {
+		setupTest(new int[] {
+				1, // 1 player
+
+				4 //End game
+		});
+		
+		ClueGame.useTestingLogic = true;
+		
+		ClueGame game = new ClueGame(false);
+		game.solution = game.generateSolution(new Character(Character.CharName.Miss_Scarlet), new Location(Location.LocName.DINING_ROOM), new Weapon(Weapon.WeaponType.DAGGER));
+		
+		
+		assertFalse(game.makeAccusal(new Character(Character.CharName.Miss_Scarlet), new Location(Location.LocName.DINING_ROOM), new Weapon(Weapon.WeaponType.REVOLVER)));
+		assertFalse(game.activePlayer.getActive());
 	}
 	
 	
