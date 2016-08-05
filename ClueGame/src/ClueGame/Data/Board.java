@@ -83,6 +83,13 @@ public class Board {
 	private int[] playerOrder = new int[] {2, 3, 5, 0, 4, 1};
 	
 	// place a player on the board in an available start tile
+	
+	/**
+	 * 
+	 * place a player on the board in an available start tile
+	 * 
+	 * @param player the player object to place on the board.
+	 */
 	public void spawnPlayer(Player player){
 		
 		List<Coordinate> startOptions = getTilesOfType(TileType.START);
@@ -118,7 +125,14 @@ public class Board {
 	}
 	
 	
-	// move a player in a given direction (use direction constants!)
+	/**
+	 * 
+	 * move a player in a given direction.
+	 *  
+	 * @param player player to move.
+	 * @param dir Coordinate of movement direction(use direction constants!).
+	 * @return whether the movement was valid (and hence completed).
+	 */
 	public boolean movePlayer(Player player, Coordinate dir){
 		
 		Coordinate newCord = getCordInDirection(player.getPosition(), dir);	
@@ -164,18 +178,38 @@ public class Board {
 		}
 	}
 	
+	/**
+	 * 
+	 * move a player to a given room on the board.
+	 *  
+	 * @param player player to move.
+	 * @param loc Room to move to.
+	 */
 	public void movePlayerToRoom(Player p, LocName loc){
 		Coordinate cord = getRoomData(loc).getNextEmptyDoor(main);
 		p.setCurrentRoom(loc);
 		p.setPosition(cord);
 	}
 	
+	/**
+	 * 
+	 * returns the char value of the given player
+	 *  
+	 * @param player player to get the icon for.
+	 * @return character for the given player
+	 */
+	
 	public char getPlayerIcon(Player p){
 		return playerASCIIValues[p.getNumber()-1];
 	}
 	
 	
-	// generate the string to display the board in ASCII
+	/**
+	 * 
+	 * generate the string to display the board in ASCII
+	 *  
+	 * @return String of the board in ASCII
+	 */
 	public String renderBoard(){
 		
 		String textBoard = "";
@@ -206,7 +240,13 @@ public class Board {
 	}
 	
 	
-	// get the relevant RoomData for a given location
+	/**
+	 * 
+	 * get the relevant RoomData for a given location
+	 *  
+	 * @param loc location to get
+	 * @return RoomData for given location
+	 */
 	private RoomData getRoomData(LocName loc){
 		for(RoomData room : roomData){
 			if(room.locName == loc)
@@ -216,7 +256,13 @@ public class Board {
 	}
 	
 	
-	// get all tiles on the board of a given type
+	/**
+	 * 
+	 * get all tiles on the board of a given type
+	 *  
+	 * @param tile tile type to find
+	 * @return list of found tiles (as Coordinates)
+	 */
 	public List<Coordinate> getTilesOfType(TileType tile){
 		
 		List<Coordinate> foundTiles = new ArrayList<Coordinate>();
@@ -231,7 +277,13 @@ public class Board {
 	}
 	
 	
-	// get the tile at the given position
+	/**
+	 * 
+	 * get the tile at the given position
+	 *  
+	 * @param cord Coordinate of tile
+	 * @return tile type of given tile
+	 */
 	private TileType getTileAtCord(Coordinate cord){
 		
 		for(int row = 0; row < tiles.length; row++){
@@ -246,7 +298,13 @@ public class Board {
 	}
 	
 	
-	// get the player at the given position
+	/**
+	 * 
+	 * get the player at the given position
+	 *  
+	 * @param cord Coordinate of the player
+	 * @return player located, or null if not a player
+	 */
 	private Player playerAtCord(Coordinate cord){
 		
 		for(Player checkPlayer : main.getPlayers()){
@@ -257,6 +315,13 @@ public class Board {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * find the first available spot to move to given a coordinate
+	 *  
+	 * @param cord Coordinate to check around
+	 * @return free Coordinate found, or null if no space was available 
+	 */
 	private Coordinate getNearestFreeSpace(Coordinate pos){
 		
 		if(getTileAtCord(getCordInDirection(pos, UP)) == TileType.EMPTY)
@@ -271,12 +336,25 @@ public class Board {
 	} 
 	
 	
-	// returns the cord in the chosen direction (use the direction constants!)
+	/**
+	 * 
+	 * get the next coordinate in a given direction.
+	 *  
+	 * @param pos Coordinate to move from.
+	 * @param dir Coordinate of movement direction(use direction constants!).
+	 * @return result
+	 */
 	private Coordinate getCordInDirection(Coordinate pos, Coordinate dir){
 		return new Coordinate(pos.row + dir.row, pos.col + dir.col);
 	}	
 	
-	// make sure a cord is within the playable board;
+	/**
+	 * 
+	 * make sure a cord is within the playable board.
+	 *  
+	 * @param cord Coordinate to check.
+	 * @return whether the cord was valid
+	 */
 	 private boolean isValidCord(Coordinate cord){
 	 	return (
 	 			cord.row >= 0 && cord.row <= 24 &&
