@@ -143,7 +143,8 @@ public class ClueGame {
 		rand = new Random().nextInt(weapons.size());
 		toAddWep = weapons.remove(rand);
 		
-		System.out.println("The solution is: " + toAddChar.getType() + " " + toAddLoc.getType() + " " + toAddWep.getType());
+		//Uncomment for debug
+		//System.out.println("The solution is: " + toAddChar.getType() + " " + toAddLoc.getType() + " " + toAddWep.getType());
 		return new Solution(toAddChar, toAddLoc , toAddWep);
 	}
 	
